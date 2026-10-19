@@ -1,0 +1,35 @@
+name: Décision d'architecture
+description: Proposer ou rouvrir une décision d'architecture (ADR)
+title: "[ADR] "
+labels: ["adr"]
+body:
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Contexte
+      description: Quelle question se pose, et pourquoi maintenant ?
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      description: Au moins trois, dont celle de l'équipe.
+    validations:
+      required: true
+  - type: textarea
+    id: criteres
+    attributes:
+      label: Critères et poids
+      description: Fixés avant toute notation, avec une échelle de 0 à 3.
+    validations:
+      required: true
+  - type: textarea
+    id: preuves
+    attributes:
+      label: Preuves
+      description: Sources lues, avec leur niveau de confiance. Indiquer ce qui n'a pas pu être vérifié.
+  - type: textarea
+    id: reouverture
+    attributes:
+      label: Ce qui rouvrirait la décision

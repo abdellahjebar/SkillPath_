@@ -1,0 +1,53 @@
+name: Tâche
+description: Un travail à réaliser, avec un résultat vérifiable
+title: "[Tâche] "
+labels: ["tâche"]
+body:
+  - type: textarea
+    id: objectif
+    attributes:
+      label: Objectif
+      description: Qu'est-ce qui doit exister à la fin, du point de vue de l'utilisateur ou du système ?
+    validations:
+      required: true
+  - type: textarea
+    id: criteres
+    attributes:
+      label: Critères d'acceptation
+      description: Une liste de conditions vérifiables.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module concerné
+      options:
+        - Ingestion
+        - Référentiel
+        - Programmes
+        - Analytique
+        - Accès
+        - Interface
+        - Infrastructure et CI
+        - Documentation
+    validations:
+      required: true
+  - type: dropdown
+    id: tranche
+    attributes:
+      label: Tranche
+      options:
+        - T0
+        - T1
+        - T2
+        - T3
+        - T4
+        - T5
+  - type: textarea
+    id: dependances
+    attributes:
+      label: Dépendances
+      description: Issues, décisions ou réponses externes dont cette tâche dépend.

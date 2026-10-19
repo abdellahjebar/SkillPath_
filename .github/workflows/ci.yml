@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Jeton en lecture seule par défaut (ADR-017)
+permissions:
+  contents: read
+
+jobs:
+  hygiene:
+    name: Hygiène du dépôt
+    runs-on: ubuntu-24.04
+    steps:
+      # Action épinglée sur un identifiant de commit (v4.2.2)
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Aucun secret versionné
+        run: |
+          fichiers=$(git ls-files | grep -E '(^|/)\.env(\.|$)' | grep -v '\.env\.example$' || true)
+          if [ -n "$fichiers" ]; then
+            echo "Fichier d'environnement versionné :"
+            echo "$fichiers"
+            exit 1
+          fi
+
+      - name: Aucune donnée d'offres versionnée
+        run: |
+          fichiers=$(git ls-files | grep -E '^(data|exports|offres)/|\.(ndjson|jsonl)$' || true)
+          if [ -n "$fichiers" ]; then
+            echo "Données d'offres versionnées (interdit, voir SECURITY.md) :"
+            echo "$fichiers"
+            exit 1
+          fi
+
+  # Les jobs de construction et de tests (backend, frontend, intégration avec
+  # PostgreSQL, vérification des modules, conformité) seront ajoutés avec le code.

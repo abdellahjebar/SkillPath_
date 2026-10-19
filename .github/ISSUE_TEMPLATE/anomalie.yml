@@ -1,0 +1,38 @@
+name: Anomalie
+description: Un comportement incorrect
+title: "[Anomalie] "
+labels: ["anomalie"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ne collez jamais de texte d'offre, de clé ou de mot de passe dans cette issue.
+  - type: textarea
+    id: observe
+    attributes:
+      label: Ce qui se passe
+    validations:
+      required: true
+  - type: textarea
+    id: attendu
+    attributes:
+      label: Ce qui devrait se passer
+    validations:
+      required: true
+  - type: textarea
+    id: reproduire
+    attributes:
+      label: Comment reproduire
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: gravite
+    attributes:
+      label: Gravité
+      options:
+        - Bloquante
+        - Majeure
+        - Mineure

@@ -1,0 +1,56 @@
+# Secrets : ne jamais versionner
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Données d'offres : ne jamais versionner (conditions d'utilisation de la source, ADR-011)
+data/
+exports/
+offres/
+*.ndjson
+*.jsonl
+
+# Java, Maven, Gradle
+target/
+build/
+.gradle/
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+hs_err_pid*
+
+# Node et Angular
+node_modules/
+dist/
+.angular/
+coverage/
+npm-debug.log*
+
+# Tests de bout en bout
+playwright-report/
+test-results/
+
+# Docker et base locale
+pgdata/
+*.log
+
+# Éditeurs et systèmes
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+.DS_Store
+Thumbs.db
+
+# LaTeX (fichiers intermédiaires)
+*.aux
+*.toc
+*.out
+*.nav
+*.snm
+*.synctex.gz

@@ -1,0 +1,7 @@
+# Fins de ligne normalisées : évite les différences LF et CRLF entre systèmes
+* text=auto eol=lf
+
+# Fichiers binaires
+*.pdf binary
+*.png binary
+*.jpg binary

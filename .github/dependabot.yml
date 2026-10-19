@@ -1,0 +1,8 @@
+version: 2
+updates:
+  # Actions GitHub : mises à jour hebdomadaires.
+  # Les écosystèmes Maven et npm seront ajoutés quand le code existera.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
