@@ -14,7 +14,7 @@ jobs:
     name: Hygiène du dépôt
     runs-on: ubuntu-24.04
     steps:
-      # Action épinglée sur un identifiant de commit (v4.2.2)
+      # Action épinglée sur un identifiant de commit (v7.0.1)
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       - name: Aucun secret versionné
