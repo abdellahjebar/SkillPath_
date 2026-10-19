@@ -131,7 +131,7 @@ Aucun composant n'est exécutable pour l'instant. Cette section sera complétée
 ## Fonctionnement de l'équipe
 
 - La branche `main` sera protégée (protection de branche à activer) : toute modification passera par une pull request relue par un autre membre.
-- Chaque tâche correspondra à une issue, suivie dans le GitHub Project « SKILLPATH ».
+- Chaque tâche correspondra à une issue, suivie dans le GitHub Project « SkillPath Audit ».
 - Les messages de commit suivent la convention Conventional Commits.
 - Une décision structurante donne lieu à un ADR.
 
