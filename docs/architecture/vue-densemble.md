@@ -1,10 +1,10 @@
 # Vue d'ensemble de l'architecture
 
-Schémas tirés du chapitre 5 du dossier de cadrage, version 0.2. Les décisions sont au statut proposé : voir [docs/adr/](../adr/README.md).
+Schémas tirés du chapitre 5 du dossier de cadrage, version 0.3. Décisions du 8 novembre 2026 : voir [docs/adr/](../adr/README.md).
 
 ## Conteneurs et modules
 
-Un monolithe modulaire de cinq modules, une base PostgreSQL, un serveur virtuel exécutant Docker Compose. Deux frontières de confiance : celle des utilisateurs, et celle des sources externes. Voir [ADR-003](../adr/adr-003.md) et [ADR-014](../adr/adr-014.md).
+Un monolithe modulaire de sept modules et d'un noyau commun, une base PostgreSQL, un serveur virtuel exécutant Docker Compose. Deux frontières de confiance : celle des utilisateurs, et celle des sources externes. Voir [ADR-003](../adr/adr-003.md) et [ADR-014](../adr/adr-014.md).
 
 ```mermaid
 flowchart LR
@@ -12,13 +12,16 @@ flowchart LR
     subgraph SV["Serveur virtuel : Docker Compose"]
         W --> APP
         subgraph APP["Application Spring Boot : monolithe modulaire"]
+            PL[Pipeline]
             I[Ingestion]
             R["Référentiel"]
+            E[Extraction]
             P[Programmes]
             N[Analytique]
             X["Accès"]
         end
         APP --> D[("PostgreSQL")]
+        APP -.->|"conditionnel (ADR-010)"| PY["Conteneur Python : embeddings"]
         F["Flyway : migrations"] --> D
     end
     APP -->|"API"| LBA["La Bonne Alternance"]
@@ -29,7 +32,7 @@ flowchart LR
 
 ## Collecte de nuit
 
-Un job Spring Batch par collecte, déclenché après 3 h (Europe/Paris). L'export est limité à deux appels par minute, et son adresse est valable deux minutes. Voir [ADR-009](../adr/adr-009.md).
+Un travail Spring Batch unique, hébergé par le module Pipeline, déclenché après 3 h (Europe/Paris) : Pipeline appelle Ingestion, puis Extraction, puis Analytique. L'export est limité à deux appels par minute, et son adresse est valable deux minutes. Voir [ADR-009](../adr/adr-009.md).
 
 ```mermaid
 sequenceDiagram
@@ -41,7 +44,9 @@ sequenceDiagram
     L-->>B: URL valable 2 min
     B->>L: appel 2 : téléchargement
     L-->>B: offres avec texte
-    B->>D: filtre, stocke, déduplique, extrait, agrège
+    B->>D: Ingestion : filtre, masque, stocke, déduplique
+    B->>D: Extraction : compétences, méthode, version
+    B->>D: Analytique : agrège, intervalles
     B->>D: journal de la collecte
     B-)M: en cas d'échec : courriel sans texte d'offre
 ```
