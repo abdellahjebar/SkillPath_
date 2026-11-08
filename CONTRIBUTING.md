@@ -4,7 +4,7 @@ Ce guide décrit comment l'équipe travaille sur le dépôt. Il applique les rè
 
 ## Principes
 
-- La branche `main` est la référence. Elle sera protégée : aucune modification directe, tout passe par une pull request relue par un autre membre.
+- La branche `main` est la référence. Aucune modification directe : tout passe par une pull request relue par un autre membre avant fusion.
 - Les branches sont courtes et ciblées. Une branche, une tâche.
 - Tout le code est relu par un autre membre avant de rejoindre `main`.
 
@@ -24,15 +24,15 @@ Exemple : `feat/12-telechargement-export`.
 
 ## Commits
 
-Les messages suivent la convention Conventional Commits : `type(portée): résumé à l'impératif`.
+Les titres suivent la convention Conventional Commits : `type(portée): résumé à l'impératif`, en anglais. Les descriptions de pull request sont en français.
 
 ```
-feat(ingestion): télécharger l'export en deux appels
-fix(analytique): corriger la borne haute de l'intervalle de Wilson
-docs(adr): proposer l'ADR-018
+feat(ingestion): download the export in two calls
+fix(analytique): correct the upper bound of the Wilson interval
+docs(adr): add ADR-028
 ```
 
-Portées utiles : `ingestion`, `referentiel`, `programmes`, `analytique`, `acces`, `api`, `frontend`, `ci`, `docs`.
+Portées utiles : `ingestion`, `referentiel`, `extraction`, `programmes`, `analytique`, `acces`, `pipeline`, `commun`, `api`, `frontend`, `ci`, `docs`.
 
 ## Pull requests
 
@@ -70,17 +70,23 @@ Toute décision structurante donne lieu à un ADR. Format et index : [docs/adr/]
 
 1. Ouvrir une issue de type « décision d'architecture ».
 2. Écrire la fiche : contexte, options, critères et poids fixés avant la notation, décision proposée, conséquences, ce qui la rouvrirait.
-3. Statut initial : `Proposé`. Il passe à `Accepté` après notation et discussion de l'équipe, puis validation de l'encadrement.
+3. Statut initial : `Proposé`. Il passe à `Décidé le <date>` après discussion de l'équipe. Les structures du squelette sont un point de départ : toute évolution passe par une fiche de ce type.
 
 ## Règles de conformité
 
 Ces règles viennent des conditions d'utilisation de la source des offres et du RGPD (ADR-005, ADR-011, ADR-015).
 
-- Le texte d'une offre n'apparaît jamais dans l'API, les journaux, les courriels, les commits ni les captures d'écran partagées.
-- Le téléphone du recruteur et l'identifiant du destinataire sont retirés avant tout stockage.
+- Le texte d'une offre n'apparaît par défaut ni dans l'API, ni dans les journaux, les courriels, les commits ou les captures d'écran partagées. Toute sortie vers un service externe est explicite et journalisée (ADR-005, ADR-015).
+- Le téléphone du recruteur et l'identifiant du destinataire sont retirés avant tout stockage ; les courriels et numéros présents dans le texte sont masqués à l'ingestion (ADR-011).
 - Aucune clé, aucun mot de passe, aucun jeton dans le dépôt. Voir [SECURITY.md](SECURITY.md).
 - Les fichiers d'exemples ne contiennent que des données fictives.
 
 ## Environnement de développement
 
-Aucun composant n'est exécutable pour l'instant. Cette section sera complétée avec l'objectif d'un démarrage en une commande, par un seul fichier Docker Compose, dès le premier livrable.
+Prérequis : Docker. Depuis le dossier `backend`, sans rien installer d'autre :
+
+```
+docker run --rm -v "${PWD}:/work" -w /work maven:3.9-eclipse-temurin-25 mvn -B verify
+```
+
+Le test `ModularityTests` liste les modules détectés et échoue si une frontière est franchie. Le démarrage complet en une commande (base de données, serveur, interface) viendra avec le lot Plateforme. Voir [backend/README.md](backend/README.md).
