@@ -5,3 +5,7 @@
 *.pdf binary
 *.png binary
 *.jpg binary
+
+# Scripts Windows : fins de ligne CRLF (le script Maven mvnw.cmd en a besoin)
+*.cmd text eol=crlf
+*.bat text eol=crlf
