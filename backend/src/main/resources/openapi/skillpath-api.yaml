@@ -1,0 +1,551 @@
+openapi: 3.0.3
+info:
+  title: SkillPath Audit API
+  version: 0.1.0
+  description: |
+    Contrat de l'API de SkillPath Audit, première version : UC1 (voir les écarts d'un segment)
+    et UC2 (ouvrir une compétence et voir les preuves).
+
+    Règles du contrat :
+    - Aucun champ ne renvoie le texte complet d'une offre (ADR-005). Une preuve contient le titre,
+      le lien de candidature, les compétences extraites et un extrait court.
+    - Les erreurs suivent le format RFC 9457 (`application/problem+json`).
+    - Ajouter un champ ou un chemin est compatible. Retirer ou renommer demande une nouvelle version.
+    - Les exemples sont fictifs : ils alimentent le serveur factice et ne représentent aucune offre réelle.
+
+    Authentification : cookie de session avec protection CSRF (ADR-013). Les requêtes de lecture
+    décrites ici n'ont pas besoin du jeton CSRF.
+servers:
+  - url: http://localhost:8080
+    description: Serveur de développement
+  - url: http://localhost:4010
+    description: Serveur factice (Prism)
+tags:
+  - name: Ecarts
+    description: UC1, écarts d'un segment
+  - name: Competences
+    description: UC2, une compétence et ses preuves
+security:
+  - cookieAuth: []
+paths:
+  /api/v1/ecarts:
+    get:
+      tags: [Ecarts]
+      operationId: listerEcarts
+      summary: Classement des écarts d'un segment
+      description: |
+        Renvoie les compétences du segment classées par écart décroissant, avec leurs intervalles.
+        Selon l'effectif du segment (règle des seuils 39 et 93), la réponse est vide
+        (`INSUFFISANT`), avec avertissement (`PRUDENCE`) ou normale (`SUFFISANT`).
+      parameters:
+        - $ref: '#/components/parameters/Domaine'
+        - $ref: '#/components/parameters/Lieu'
+        - $ref: '#/components/parameters/Periode'
+        - $ref: '#/components/parameters/Programme'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Taille'
+      responses:
+        '200':
+          description: Classement des écarts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageEcarts'
+              examples:
+                segmentNational:
+                  summary: Segment national de la famille M18, assez d'offres
+                  value:
+                    segment:
+                      domaine: M18
+                      lieu: FR
+                      periode: 2026-10
+                    effectifOffres: 129
+                    niveauEffectif: SUFFISANT
+                    versionReferentiel: esco-1.2.1+local-0.1
+                    versionProgramme: m1-miage-2026-v1
+                    page: 0
+                    taille: 20
+                    totalElements: 2
+                    elements:
+                      - competence:
+                          id: 11111111-1111-4111-8111-111111111111
+                          libelle: Kubernetes
+                          type: OUTIL
+                          origine: LOCAL
+                        demande:
+                          valeur: 0.30
+                          borneInferieure: 0.23
+                          borneSuperieure: 0.38
+                          nombreOffres: 39
+                        couverture:
+                          valeur: 0.0
+                          niveauMaximal: 0
+                          nombreModules: 0
+                        ecart:
+                          valeur: 0.30
+                          borneInferieure: 0.23
+                          borneSuperieure: 0.38
+                        rangIncertain: true
+                      - competence:
+                          id: 22222222-2222-4222-8222-222222222222
+                          libelle: Docker
+                          type: OUTIL
+                          origine: LOCAL
+                        demande:
+                          valeur: 0.30
+                          borneInferieure: 0.23
+                          borneSuperieure: 0.38
+                          nombreOffres: 39
+                        couverture:
+                          valeur: 0.3333
+                          niveauMaximal: 1
+                          nombreModules: 1
+                        ecart:
+                          valeur: 0.20
+                          borneInferieure: 0.15
+                          borneSuperieure: 0.25
+                        rangIncertain: true
+                segmentTropPetit:
+                  summary: Segment trop petit, aucune estimation
+                  value:
+                    segment:
+                      domaine: M18
+                      lieu: FR
+                      periode: 2026-09
+                    effectifOffres: 12
+                    niveauEffectif: INSUFFISANT
+                    versionReferentiel: esco-1.2.1+local-0.1
+                    versionProgramme: m1-miage-2026-v1
+                    page: 0
+                    taille: 20
+                    totalElements: 0
+                    elements: []
+        '400':
+          $ref: '#/components/responses/RequeteInvalide'
+        '401':
+          $ref: '#/components/responses/NonConnecte'
+        '403':
+          $ref: '#/components/responses/Interdit'
+        '503':
+          $ref: '#/components/responses/Indisponible'
+  /api/v1/competences/{competenceId}:
+    get:
+      tags: [Competences]
+      operationId: obtenirCompetence
+      summary: Une compétence, sa demande, sa couverture et ses preuves
+      description: |
+        Détail d'une compétence pour un segment : demande, couverture, écart, modules du programme
+        qui la traitent et preuves paginées. Une preuve ne contient jamais le texte complet de l'offre.
+      parameters:
+        - name: competenceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - $ref: '#/components/parameters/Domaine'
+        - $ref: '#/components/parameters/Lieu'
+        - $ref: '#/components/parameters/Periode'
+        - $ref: '#/components/parameters/Programme'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Taille'
+      responses:
+        '200':
+          description: Détail de la compétence
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailCompetence'
+              examples:
+                docker:
+                  summary: Docker, couverte au niveau mentionné
+                  value:
+                    competence:
+                      id: 22222222-2222-4222-8222-222222222222
+                      libelle: Docker
+                      type: OUTIL
+                      origine: LOCAL
+                    segment:
+                      domaine: M18
+                      lieu: FR
+                      periode: 2026-10
+                    niveauEffectif: SUFFISANT
+                    demande:
+                      valeur: 0.30
+                      borneInferieure: 0.23
+                      borneSuperieure: 0.38
+                      nombreOffres: 39
+                    couverture:
+                      valeur: 0.3333
+                      niveauMaximal: 1
+                      nombreModules: 1
+                    ecart:
+                      valeur: 0.20
+                      borneInferieure: 0.15
+                      borneSuperieure: 0.25
+                    modules:
+                      - id: 33333333-3333-4333-8333-333333333333
+                        code: EXEMPLE-01
+                        libelle: Module d'exemple (fictif)
+                        uniteEnseignement: UE d'exemple (fictive)
+                        niveau: 1
+                    preuves:
+                      page: 0
+                      taille: 20
+                      totalElements: 1
+                      elements:
+                        - offreId: 44444444-4444-4444-8444-444444444444
+                          titre: Développeur d'applications en alternance (offre fictive)
+                          lienCandidature: https://exemple.invalid/candidature/44444444
+                          competencesExtraites: [Docker, Java, PostgreSQL]
+                          extrait: Vous déployez les applications dans des conteneurs Docker.
+                          dateCreation: 2026-10-14
+                          methode: dictionnaire
+        '400':
+          $ref: '#/components/responses/RequeteInvalide'
+        '401':
+          $ref: '#/components/responses/NonConnecte'
+        '403':
+          $ref: '#/components/responses/Interdit'
+        '404':
+          $ref: '#/components/responses/Introuvable'
+        '503':
+          $ref: '#/components/responses/Indisponible'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: SESSION
+  parameters:
+    Domaine:
+      name: domaine
+      in: query
+      description: Famille de codes ROME du segment.
+      schema:
+        type: string
+        default: M18
+        example: M18
+    Lieu:
+      name: lieu
+      in: query
+      description: Lieu du segment. `FR` désigne la France entière, seule valeur de la première version.
+      schema:
+        type: string
+        default: FR
+        enum: [FR]
+    Periode:
+      name: periode
+      in: query
+      description: Mois de création des offres, au format AAAA-MM (fuseau Europe/Paris).
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9]{4}-(0[1-9]|1[0-2])$'
+        example: 2026-10
+    Programme:
+      name: programme
+      in: query
+      description: Version publiée du programme servant à calculer la couverture. Par défaut, la dernière publiée.
+      schema:
+        type: string
+        example: m1-miage-2026-v1
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Taille:
+      name: taille
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+  schemas:
+    Segment:
+      type: object
+      required: [domaine, lieu, periode]
+      properties:
+        domaine:
+          type: string
+        lieu:
+          type: string
+        periode:
+          type: string
+          pattern: '^[0-9]{4}-(0[1-9]|1[0-2])$'
+    NiveauEffectif:
+      type: string
+      description: |
+        Précision permise par le nombre d'offres du segment :
+        `INSUFFISANT` sous 39 offres (aucune estimation), `PRUDENCE` de 39 à 92 (à interpréter avec prudence),
+        `SUFFISANT` à partir de 93.
+      enum: [INSUFFISANT, PRUDENCE, SUFFISANT]
+    Competence:
+      type: object
+      required: [id, libelle, type, origine]
+      properties:
+        id:
+          type: string
+          format: uuid
+        libelle:
+          type: string
+        type:
+          type: string
+          description: Niveau de la liste à deux niveaux (ADR-007).
+          enum: [CONCEPT, OUTIL]
+        origine:
+          type: string
+          description: ESCO, ou complément local hors ESCO.
+          enum: [ESCO, LOCAL]
+    Demande:
+      type: object
+      description: Part des offres du segment qui mentionnent la compétence, avec l'intervalle de Wilson.
+      required: [valeur, borneInferieure, borneSuperieure, nombreOffres]
+      properties:
+        valeur:
+          type: number
+          minimum: 0
+          maximum: 1
+        borneInferieure:
+          type: number
+          minimum: 0
+          maximum: 1
+        borneSuperieure:
+          type: number
+          minimum: 0
+          maximum: 1
+        nombreOffres:
+          type: integer
+          minimum: 0
+          description: Nombre d'offres du segment qui mentionnent la compétence.
+    Couverture:
+      type: object
+      description: Meilleur niveau atteint par un module du programme, divisé par 3.
+      required: [valeur, niveauMaximal, nombreModules]
+      properties:
+        valeur:
+          type: number
+          minimum: 0
+          maximum: 1
+        niveauMaximal:
+          type: integer
+          minimum: 0
+          maximum: 3
+          description: 0 non traitée, 1 mentionnée, 2 pratiquée, 3 évaluée.
+        nombreModules:
+          type: integer
+          minimum: 0
+    Ecart:
+      type: object
+      description: G = D × (1 − K), avec les bornes déduites de l'intervalle de la demande.
+      required: [valeur, borneInferieure, borneSuperieure]
+      properties:
+        valeur:
+          type: number
+          minimum: 0
+          maximum: 1
+        borneInferieure:
+          type: number
+          minimum: 0
+          maximum: 1
+        borneSuperieure:
+          type: number
+          minimum: 0
+          maximum: 1
+    LigneEcart:
+      type: object
+      required: [competence, demande, couverture, ecart, rangIncertain]
+      properties:
+        competence:
+          $ref: '#/components/schemas/Competence'
+        demande:
+          $ref: '#/components/schemas/Demande'
+        couverture:
+          $ref: '#/components/schemas/Couverture'
+        ecart:
+          $ref: '#/components/schemas/Ecart'
+        rangIncertain:
+          type: boolean
+          description: Vrai si l'intervalle de l'écart chevauche celui d'une compétence voisine du classement.
+    PageEcarts:
+      type: object
+      required: [segment, effectifOffres, niveauEffectif, versionReferentiel, versionProgramme, page, taille, totalElements, elements]
+      properties:
+        segment:
+          $ref: '#/components/schemas/Segment'
+        effectifOffres:
+          type: integer
+          minimum: 0
+          description: Nombre d'offres du segment, dédupliquées et avec un texte exploitable.
+        niveauEffectif:
+          $ref: '#/components/schemas/NiveauEffectif'
+        versionReferentiel:
+          type: string
+        versionProgramme:
+          type: string
+        page:
+          type: integer
+        taille:
+          type: integer
+        totalElements:
+          type: integer
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/LigneEcart'
+    ModuleTraitant:
+      type: object
+      required: [id, code, libelle, uniteEnseignement, niveau]
+      properties:
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        libelle:
+          type: string
+        uniteEnseignement:
+          type: string
+        niveau:
+          type: integer
+          minimum: 1
+          maximum: 3
+          description: Niveau auquel ce module traite la compétence.
+    Preuve:
+      type: object
+      description: |
+        Une offre qui mentionne la compétence. Le texte complet n'est jamais renvoyé (ADR-005) ;
+        `extrait` est limité à 300 caractères (une phrase, longueur à confirmer).
+      required: [offreId, titre, lienCandidature, competencesExtraites, dateCreation, methode]
+      properties:
+        offreId:
+          type: string
+          format: uuid
+        titre:
+          type: string
+        lienCandidature:
+          type: string
+          format: uri
+        competencesExtraites:
+          type: array
+          items:
+            type: string
+        extrait:
+          type: string
+          maxLength: 300
+        dateCreation:
+          type: string
+          format: date
+        methode:
+          type: string
+          description: Méthode d'extraction qui a produit la mention.
+          example: dictionnaire
+    PagePreuves:
+      type: object
+      required: [page, taille, totalElements, elements]
+      properties:
+        page:
+          type: integer
+        taille:
+          type: integer
+        totalElements:
+          type: integer
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Preuve'
+    DetailCompetence:
+      type: object
+      required: [competence, segment, niveauEffectif, demande, couverture, ecart, modules, preuves]
+      properties:
+        competence:
+          $ref: '#/components/schemas/Competence'
+        segment:
+          $ref: '#/components/schemas/Segment'
+        niveauEffectif:
+          $ref: '#/components/schemas/NiveauEffectif'
+        demande:
+          $ref: '#/components/schemas/Demande'
+        couverture:
+          $ref: '#/components/schemas/Couverture'
+        ecart:
+          $ref: '#/components/schemas/Ecart'
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleTraitant'
+        preuves:
+          $ref: '#/components/schemas/PagePreuves'
+    Probleme:
+      type: object
+      description: Erreur au format RFC 9457.
+      required: [type, title, status]
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          example: about:blank
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+  responses:
+    RequeteInvalide:
+      description: Paramètre manquant ou invalide.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Probleme'
+          example:
+            type: about:blank
+            title: Requête invalide
+            status: 400
+            detail: Le paramètre periode doit avoir le format AAAA-MM.
+    NonConnecte:
+      description: Session absente ou expirée.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Probleme'
+          example:
+            type: about:blank
+            title: Non connecté
+            status: 401
+    Interdit:
+      description: Le rôle de l'utilisateur ne permet pas cette action.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Probleme'
+          example:
+            type: about:blank
+            title: Accès interdit
+            status: 403
+    Introuvable:
+      description: Ressource inconnue.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Probleme'
+          example:
+            type: about:blank
+            title: Introuvable
+            status: 404
+    Indisponible:
+      description: Base de données indisponible.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Probleme'
+          example:
+            type: about:blank
+            title: Service indisponible
+            status: 503
