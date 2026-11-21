@@ -37,8 +37,32 @@ Choisir une réponse précise avec l'en-tête `Prefer` :
 | `Prefer: code=404` | Compétence introuvable |
 | `Prefer: code=503` | Service indisponible |
 
+## Générer le client TypeScript
+
+Le client Angular n'est pas committé : chacun le génère à partir du contrat, ce qui garantit qu'il ne s'écarte jamais de lui. Outil : [ng-openapi-gen](https://github.com/cyclosproject/ng-openapi-gen), qui génère des services Angular typés.
+
+Dans le projet Angular (le dossier `frontend/` appartient au lot Interface, qui choisit l'emplacement du client), ajouter l'outil et un script :
+
+```
+npm install --save-dev ng-openapi-gen@1.1.0
+```
+
+```
+"scripts": {
+  "api:generer": "ng-openapi-gen --input ../backend/src/main/resources/openapi/skillpath-api.yaml --output src/app/api"
+}
+```
+
+Puis `npm run api:generer`. Le dossier généré est à ignorer dans Git (fichier `.gitignore` du projet Angular) ; le fichier `skillpath-api.yaml` est la référence.
+
+Vérifié le 21 novembre 2026 : avec ng-openapi-gen 1.1.0, le contrat actuel produit 13 modèles et 2 services (écarts et compétences), qui compilent en mode strict avec Angular 22.3.0 et TypeScript. Le chemin de sortie et la structure du dossier sont libres.
+
+Remarques pour l'interface :
+
+- La session est un cookie : en développement, passer par le proxy du serveur de développement d'Angular pour que le navigateur envoie le cookie sans configuration de CORS. Le client généré ne gère pas le cookie lui-même.
+- Si le contrat change, relancer `npm run api:generer`. Un champ ajouté apparaît ; un champ retiré fait échouer la compilation là où l'interface l'utilise, ce qui signale le changement.
+
 ## Reste à faire dans le lot 2
 
-- Génération du client TypeScript.
 - Contrôles de la CI : validation du contrat, régénération du client, absence de texte complet, changements cassants.
 - Quand le serveur existera : contrat produit par le code (springdoc) avec test de dérive par rapport à ce fichier ([ADR-012](../../../../../docs/adr/adr-012.md)).
