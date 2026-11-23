@@ -8,20 +8,27 @@ publique (`…Api.java`, vide pour l'instant) et déclare ses dépendances autor
 
 ## Construire et tester
 
-Avec Maven installé et Java 25 :
+Docker doit être lancé : les tests d'intégration démarrent un PostgreSQL 18 en conteneur
+(Testcontainers). Avec Maven installé et Java 25 :
 
 ```
 mvn verify
 ```
 
-Sans rien installer, avec Docker (depuis le dossier `backend`) :
+Sans installer Java ni Maven, avec Docker (depuis le dossier `backend`, vérifié sous Docker
+Desktop pour Windows). Le conteneur de Maven commande Docker par son socket, d'où les deux
+options en plus :
 
 ```
-docker run --rm -v "${PWD}:/work" -w /work maven:3.9-eclipse-temurin-25 mvn -B verify
+docker run --rm -v "${PWD}:/work" -v /var/run/docker.sock:/var/run/docker.sock -e TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal -w /work maven:3.9-eclipse-temurin-25 mvn -B verify
 ```
 
-Le test affiche les modules détectés : `commun`, `referentiel`, `acces`, `ingestion`,
-`extraction`, `programmes`, `analytique`, `pipeline`.
+Sous Git Bash, préfixer par `MSYS_NO_PATHCONV=1` et écrire `$(pwd -W)` à la place de `${PWD}`.
+
+`ModularityTests` affiche les modules détectés : `commun`, `referentiel`, `acces`, `ingestion`,
+`extraction`, `programmes`, `analytique`, `pipeline`. `StackSmokeTest` valide la pile (PostgreSQL 18,
+Flyway, Spring Data JDBC, JdbcClient, Spring Batch, registre d'événements de Spring Modulith) ; ses tables
+et sa migration sont des ressources de test, aucune table métier n'existe encore.
 
 ## Où mettre son code
 
