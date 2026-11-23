@@ -1,0 +1,28 @@
+﻿id_local;libelle;type;alias_fr;alias_en;parent_esco;id_externe;provenance;statut;validateur;version
+LOC-001;deploiement par conteneurs;concept;"conteneurisation;conteneurs";containerization;;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-002;integration et livraison continues;concept;"CI/CD;integration continue;livraison continue";"continuous integration;continuous delivery";;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-003;Docker;outil;;Docker;;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-004;Kubernetes;outil;K8s;"Kubernetes;k8s";;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-005;Jenkins;outil;;Jenkins;Jenkins (outils de gestion de configuration logicielle);http://data.europa.eu/esco/skill/f47a1998-0beb-43be-9f46-380aa4d183da;verifie dans ESCO v1.2.1 FR le 22 nov. 2026 : present (corrige le dossier v0.3);dans_esco;;v0.2
+LOC-006;Linux;outil;;Linux;;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-007;Power BI;outil;PowerBI;Power BI;;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-008;Tableau;outil;;Tableau;;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-009;React;outil;;"React;ReactJS";;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-010;Angular;outil;;Angular;Angular;http://data.europa.eu/esco/skill/1ffac4ac-fda7-407d-8ed1-ca8f4a8dc146;verifie dans ESCO v1.2.1 FR le 22 nov. 2026 : present (corrige le dossier v0.3);dans_esco;;v0.2
+LOC-011;Spring;outil;Spring Boot;"Spring;Spring Boot";;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-012;Jira;outil;;Jira;;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-013;Salesforce;outil;;Salesforce;;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-014;AWS;outil;Amazon Web Services;"AWS;Amazon Web Services";;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-015;Azure;outil;Microsoft Azure;"Azure;Microsoft Azure";;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-016;Terraform;outil;;Terraform;;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-017;MongoDB;outil;;MongoDB;;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-018;Git;outil;;Git;outils de gestion de configuration logicielle;http://data.europa.eu/esco/skill/9d2e926f-53d9-41f5-98f3-19dfaa687f3f;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : trouve seulement comme synonyme ESCO -> a valider";partiel_esco;;v0.2
+LOC-019;Excel;outil;;Excel;utiliser un logiciel de tableur;;"dossier v0.3, 3.1 ; ESCO v1.2.1 FR 22 nov. 2026 : absent";partiel_esco;;v0.2
+LOC-020;Active Directory;outil;annuaire AD;Active Directory;;;"offres collectees ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-021;VMware;outil;virtualisation VMware;VMware;;;"offres collectees ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-022;PowerShell;outil;;PowerShell;;;"offres collectees ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-023;supervision et monitoring;concept;"supervision;monitoring;surveillance";monitoring;;;"offres collectees ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-024;ERP;concept;progiciel de gestion integre;"ERP;enterprise resource planning";;;"offres collectees ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-025;SAP;outil;;SAP;;;"offres collectees ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
+LOC-026;ETL;concept;extraction transformation chargement;ETL;outils d’extraction de transformation et de chargement;http://data.europa.eu/esco/skill/9d0d89be-bffa-4393-b6f6-8d05bea49051;"offres collectees ; ESCO v1.2.1 FR 22 nov. 2026 : trouve seulement comme synonyme ESCO -> a valider";partiel_esco;;v0.2
+LOC-027;QlikSense;outil;Qlik Sense;"Qlik Sense;QlikSense";;;"offres collectees ; ESCO v1.2.1 FR 22 nov. 2026 : absent";propose;;v0.2
