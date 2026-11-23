@@ -42,14 +42,20 @@ jobs:
       # Action épinglée sur un identifiant de commit (v7.0.1)
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
-      # Même commande que dans backend/README.md. Image épinglée par son empreinte
-      # (Maven 3.9, Temurin 25) ; Dependabot ne la suit pas, la mettre à jour à la main.
-      - name: Construire et tester (mvn verify)
-        run: |
-          docker run --rm \
-            -v "$PWD/backend:/work" -w /work \
-            maven:3.9-eclipse-temurin-25@sha256:93b8a14ea2f412782e4e842651273b4d903e35cc496284f178fbbe2d67d00976 \
-            mvn -B -ntp verify
+      # Action officielle de GitHub, épinglée sur un identifiant de commit (v6.3.0).
+      # Java 25, comme dans le pom. Le cache accélère le téléchargement des dépendances Maven.
+      - uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+          cache-dependency-path: backend/pom.xml
 
-  # Les jobs frontend, intégration avec PostgreSQL et conformité seront ajoutés
-  # avec le code correspondant. Le contrôle du contrat d'API fait l'objet de #21.
+      # Maven tourne directement sur la machine : les tests d'intégration démarrent un
+      # PostgreSQL 18 en conteneur (Testcontainers, ADR-016) et ont besoin de Docker.
+      - name: Construire et tester (mvn verify)
+        working-directory: backend
+        run: mvn -B -ntp verify
+
+  # Les jobs frontend et conformité seront ajoutés avec le code correspondant.
+  # Le contrôle du contrat d'API fait l'objet de #21.
