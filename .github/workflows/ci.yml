@@ -35,5 +35,21 @@ jobs:
             exit 1
           fi
 
-  # Les jobs de construction et de tests (backend, frontend, intégration avec
-  # PostgreSQL, vérification des modules, conformité) seront ajoutés avec le code.
+  backend:
+    name: Backend (construction et tests)
+    runs-on: ubuntu-24.04
+    steps:
+      # Action épinglée sur un identifiant de commit (v7.0.1)
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      # Même commande que dans backend/README.md. Image épinglée par son empreinte
+      # (Maven 3.9, Temurin 25) ; Dependabot ne la suit pas, la mettre à jour à la main.
+      - name: Construire et tester (mvn verify)
+        run: |
+          docker run --rm \
+            -v "$PWD/backend:/work" -w /work \
+            maven:3.9-eclipse-temurin-25@sha256:93b8a14ea2f412782e4e842651273b4d903e35cc496284f178fbbe2d67d00976 \
+            mvn -B -ntp verify
+
+  # Les jobs frontend, intégration avec PostgreSQL et conformité seront ajoutés
+  # avec le code correspondant. Le contrôle du contrat d'API fait l'objet de #21.
