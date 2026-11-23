@@ -109,3 +109,13 @@ Numérotation identique à celle du dossier de cadrage, version 0.2. Les numéro
 105. INSEE, *Système national d'identification et du répertoire des entreprises et de leurs établissements (Sirene)*, consultée le 18 octobre 2026. <https://www.insee.fr/fr/information/6043016>
 106. Assemblée nationale, *Amendement n° 30 au projet de loi n° 2864* (propose de modifier le dernier alinéa de l'article L122-5-3 du code de la propriété intellectuelle), juin 2026. <https://www.assemblee-nationale.fr/dyn/17/amendements/2864/AN/30>
 107. Presses de l'EHESP, *Clause de réservation de droits de fouille de textes et de données* (cite l'article R122-28 ; source d'un titulaire de droits, secondaire). <https://www.presses.ehesp.fr/wp-content/uploads/2025/12/clause-tdmv21.pdf>
+108. Spring, *Spring Boot 3.5 System Requirements*, consultée le 23 novembre 2026. <https://docs.spring.io/spring-boot/3.5/system-requirements.html>
+109. Spring, *Managed Dependency Coordinates* (Spring Boot 3.5.16), consultée le 23 novembre 2026. <https://docs.spring.io/spring-boot/3.5/appendix/dependency-versions/coordinates.html>
+110. Hibernate, *Hibernate ORM 6.6* (état de la série, compatibilité Java), consultée le 23 novembre 2026. <https://hibernate.org/orm/releases/6.6/>
+111. jOOQ, *Version Support Matrix (JDK)*, consultée le 23 novembre 2026. <https://www.jooq.org/download/support-matrix-jdk>
+112. jOOQ, *Licensing*, consultée le 23 novembre 2026. <https://www.jooq.org/legal/licensing>
+113. Spring, *Spring Data JDBC Reference Documentation* (sémantique des agrégats ; extraits de plusieurs versions, de la 2.4 à la version en cours), consultée le 23 novembre 2026. <https://docs.spring.io/spring-data/data-jdbc/docs/current-SNAPSHOT/reference/html/>
+114. Spring, *Spring Modulith 1.4 : Working with Application Events*, consultée le 23 novembre 2026. <https://docs.spring.io/spring-modulith/reference/1.4/events.html>
+115. Spring, *JdbcOperations* (Javadoc, JdbcClient depuis la version 6.1), consultée le 23 novembre 2026. <https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcOperations.html>
+116. Redgate, *Flyway : PostgreSQL Database* (page mise à jour le 19 novembre 2026), consultée le 23 novembre 2026. <https://documentation.red-gate.com/fd/postgresql-database-277579325.html>
+117. Hibernate, *Hibernate Query Language 6.6* (clause `on conflict`), consultée le 23 novembre 2026. <https://docs.hibernate.org/orm/6.6/querylanguage/html_single/Hibernate_Query_Language.html>
