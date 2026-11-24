@@ -1,0 +1,7 @@
+# Hors de l'image : secrets, résultats de construction, historique, documentation.
+.env
+.env.*
+!.env.example
+target/
+.git/
+*.md
