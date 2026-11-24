@@ -1,0 +1,2 @@
+# Garder les fichiers ESCO octet pour octet (pas de conversion de fins de ligne), pour que les SHA-256 de LISEZ-MOI.md restent valables.
+*.csv -text
