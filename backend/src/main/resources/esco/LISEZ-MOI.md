@@ -10,7 +10,7 @@ Cette notice décrit **où trouver ESCO et comment l'utiliser**. Ce dossier cont
 ## Fichiers utilisés par le projet
 | Fichier | Contenu | Lignes (données) |
 |---|---|---|
-| `skills_fr.csv` | toutes les compétences (libellé, synonymes, description, URI) | 13 960 |
+| `skills_fr.csv` | toutes les compétences (libellé, synonymes, description, URI) | 13 960 lignes, 13 939 compétences distinctes (21 URI figurent deux fois, avec deux dates de modification : garder la plus récente) |
 | `digitalSkillsCollection_fr.csv` | sous-ensemble des compétences numériques | 1 284 |
 | `skillsHierarchy_fr.csv` | arborescence des compétences | 640 |
 | `skillGroups_fr.csv` | groupes de compétences | 640 |
@@ -38,7 +38,7 @@ Windows (PowerShell) : `Get-FileHash .\skills_fr.csv -Algorithm SHA256`
 - Ces constats alimentent `liste_locale.csv`, qui complète ESCO pour les termes absents (ADR-007).
 
 ## Choix de versionnement
-- Aucune compétence n'est perdue : `skills_fr.csv` contient les 13 960 compétences avec leur libellé et leur description (les synonymes n'existent que pour 1 933 d'entre elles, dans ce même fichier).
+- Aucune compétence n'est perdue : `skills_fr.csv` contient les 13 939 compétences distinctes (13 960 lignes) avec leur libellé et leur description (les synonymes n'existent que pour 1 933 d'entre elles, dans ce même fichier).
 - Fichiers non versionnés : métiers (`occupations_fr.csv`, `occupationSkillRelations_fr.csv`, `broaderRelationsOccPillar_fr.csv`), `skillSkillRelations_fr.csv`, ISCO, collections vert, recherche, langues, DigComp, `greenShareOcc_fr.csv` et `dictionary_fr.csv`. À ajouter si un lot en a besoin.
 - Seuls les 4 fichiers utiles sont dans le dépôt (la version complète pèse 46 Mo). Une nouvelle version d'ESCO ajoutera une nouvelle copie dans l'historique Git : à ne faire que si nécessaire.
 - Le fichier `.gitattributes` de ce dossier garde les fichiers octet pour octet (sans lui, le `.gitattributes` du dépôt convertirait les fins de ligne et les SHA-256 ci-dessus ne correspondraient plus).
