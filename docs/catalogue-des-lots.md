@@ -66,7 +66,7 @@ Ce catalogue décrit les quinze lots du projet, avec le même modèle pour chacu
 | Dépend de | Lots 1 et 6 (domaine). |
 | À lire | Ch. 4 (sources), ch. 6 (6.1 à 6.3), fiches [ADR-009](adr/adr-009.md), [ADR-011](adr/adr-011.md), [ADR-025](adr/adr-025.md). |
 | Terminé quand | La collecte est rejouable sans doublon ; un fichier tronqué est rejeté ; les tests passent sur les jeux d'exemple ; le journal est écrit. |
-| Taille et responsable | L. À choisir. |
+| Taille et responsable | L. Pris : Abdelouarite. |
 
 ### Lot 6 : Référentiel
 
@@ -106,7 +106,7 @@ Ce catalogue décrit les quinze lots du projet, avec le même modèle pour chacu
 | Dépend de | Lots 6 et 5 ; l'extrait du domaine masqué. |
 | À lire | Ch. 7, fiche [ADR-010](adr/adr-010.md). |
 | Terminé quand | Le dictionnaire est mesuré sur le test gelé avec ses intervalles ; le garde-fou est en CI ; les mentions sont stockées. |
-| Taille et responsable | L. À choisir. |
+| Taille et responsable | L. Pris : Abdelouarite. |
 
 ### Lot 9 : Service d'IA (conditionnel)
 
@@ -168,7 +168,7 @@ Ce catalogue décrit les quinze lots du projet, avec le même modèle pour chacu
 | Dépend de | Lot 1. |
 | À lire | Ch. 8 (sécurité), fiche [ADR-013](adr/adr-013.md). |
 | Terminé quand | Les tests par rôle passent ; la protection CSRF est testée avec Angular ; les mots de passe sont hachés. |
-| Taille et responsable | S. À choisir. |
+| Taille et responsable | S. Pris : Abdellah. |
 
 ## Données, tests et documentation
 
