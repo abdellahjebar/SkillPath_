@@ -64,6 +64,16 @@ Le serveur est sur `http://localhost:8080` et se connecte à la base du Compose.
 L'image tourne avec un utilisateur sans droits d'administration. La CI vérifie qu'elle se construit ; elle n'est pas
 publiée avant le premier déploiement (ADR-017).
 
+## Sécurité de l'API (lot 11, ADR-013)
+
+Tout chemin demande une session, sauf la connexion. La session est un cookie ; les écritures demandent le jeton CSRF.
+
+- Connexion : `POST /api/v1/session` (formulaire : `identifiant`, `motDePasse`). Utilisateur courant : `GET /api/v1/session`. Déconnexion : `DELETE /api/v1/session`.
+- Jeton CSRF : le cookie `XSRF-TOKEN` (lisible par JavaScript) est écrit à chaque réponse ; Angular le renvoie dans l'en-tête `X-XSRF-TOKEN`. Après une connexion ou une déconnexion, rappeler `GET /api/v1/session` pour recharger le jeton.
+- Les refus sont des erreurs RFC 9457 : 401 (pas de session, identifiant ou mot de passe faux) et 403 (rôle insuffisant ou jeton CSRF absent).
+- Dans un contrôleur : `@PreAuthorize("hasRole('" + Roles.ENSEIGNANT + "')")`, avec les constantes de `Roles`.
+- Il n'y a pas encore de comptes en base : personne ne peut se connecter sur le vrai serveur. Les tests (`SecuriteTest`) créent les leurs.
+
 ## Où mettre son code
 
 Dans le paquet de son module (`fr.skillpath.<module>`). L'interface publique et les objets échangés

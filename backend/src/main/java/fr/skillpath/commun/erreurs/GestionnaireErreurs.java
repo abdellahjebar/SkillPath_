@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -26,7 +28,14 @@ public class GestionnaireErreurs extends ResponseEntityExceptionHandler {
     private static final Logger JOURNAL = LoggerFactory.getLogger(GestionnaireErreurs.class);
 
     @ExceptionHandler(Exception.class)
-    ProblemDetail erreurInattendue(Exception exception, HttpServletRequest requete) {
+    ProblemDetail erreurInattendue(Exception exception, HttpServletRequest requete) throws Exception {
+        // Les refus de sécurité (401, 403) ne sont pas des pannes : la chaîne de sécurité les traduit en réponse.
+        if (exception instanceof AccessDeniedException refus) {
+            throw refus;
+        }
+        if (exception instanceof AuthenticationException refus) {
+            throw refus;
+        }
         JOURNAL.error("Erreur inattendue sur {} {}", requete.getMethod(), requete.getRequestURI(),
                 ExceptionsSansMessage.depuis(exception));
         ProblemDetail probleme = ProblemDetail.forStatusAndDetail(
