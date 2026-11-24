@@ -20,13 +20,13 @@ docker run --rm -p 4010:4010 -v "${PWD}/src/main/resources/openapi:/spec:ro" sto
 
 Le serveur répond sur `http://localhost:4010`. Le drapeau `-m false` évite un plantage au démarrage constaté avec cette image.
 
-Comme le vrai serveur, il exige une session : ajouter l'en-tête `Cookie: SESSION=test`, sinon la réponse est 401. Le navigateur envoie le cookie tout seul une fois créé dans les outils de développement.
+Comme le vrai serveur, il exige une session : ajouter l'en-tête `Cookie: JSESSIONID=test`, sinon la réponse est 401. Le navigateur envoie le cookie tout seul une fois créé dans les outils de développement.
 
 Exemples d'essai :
 
 ```
-curl -H "Cookie: SESSION=test" "http://localhost:4010/api/v1/ecarts?periode=2026-10"
-curl -H "Cookie: SESSION=test" "http://localhost:4010/api/v1/competences/22222222-2222-4222-8222-222222222222?periode=2026-10"
+curl -H "Cookie: JSESSIONID=test" "http://localhost:4010/api/v1/ecarts?periode=2026-10"
+curl -H "Cookie: JSESSIONID=test" "http://localhost:4010/api/v1/competences/22222222-2222-4222-8222-222222222222?periode=2026-10"
 ```
 
 Choisir une réponse précise avec l'en-tête `Prefer` :
@@ -56,6 +56,12 @@ npm install --save-dev ng-openapi-gen@1.1.0
 Puis `npm run api:generer`. Le dossier généré est à ignorer dans Git (fichier `.gitignore` du projet Angular) ; le fichier `skillpath-api.yaml` est la référence.
 
 Vérifié le 21 novembre 2026 : avec ng-openapi-gen 1.1.0, le contrat actuel produit 13 modèles et 2 services (écarts et compétences), qui compilent en mode strict avec Angular 22.3.0 et TypeScript. Le chemin de sortie et la structure du dossier sont libres.
+
+Le 24 novembre 2026, avec les opérations de session ajoutées, la génération produit 14 modèles et 3 services (écarts, compétences, session) ; cet essai n'a pas compilé le client avec Angular.
+
+## Connexion et jeton CSRF
+
+Trois opérations sur `/api/v1/session` : `GET` (utilisateur courant, 401 sans session), `POST` (connexion, formulaire `identifiant` et `motDePasse`) et `DELETE` (déconnexion). Le cookie de session s'appelle `JSESSIONID`. Toute écriture renvoie le jeton CSRF : le serveur écrit le cookie `XSRF-TOKEN` à chaque réponse, et l'interface en recopie la valeur dans l'en-tête `X-XSRF-TOKEN`. Après une connexion ou une déconnexion, rappeler `GET /api/v1/session` pour recharger le jeton. Le serveur factice ne vérifie pas le jeton CSRF.
 
 Remarques pour l'interface :
 

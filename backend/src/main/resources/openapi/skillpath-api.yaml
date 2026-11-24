@@ -13,8 +13,11 @@ info:
     - Ajouter un champ ou un chemin est compatible. Retirer ou renommer demande une nouvelle version.
     - Les exemples sont fictifs : ils alimentent le serveur factice et ne représentent aucune offre réelle.
 
-    Authentification : cookie de session avec protection CSRF (ADR-013). Les requêtes de lecture
-    décrites ici n'ont pas besoin du jeton CSRF.
+    Authentification : cookie de session (`JSESSIONID`, inaccessible au JavaScript) avec protection CSRF
+    (ADR-013). Les requêtes de lecture (GET) n'ont pas besoin du jeton CSRF. Toute requête qui modifie
+    quelque chose (POST, DELETE) doit le renvoyer : le serveur écrit le cookie `XSRF-TOKEN` à chaque réponse,
+    et l'interface en recopie la valeur dans l'en-tête `X-XSRF-TOKEN` (Angular le fait seul). Après une
+    connexion ou une déconnexion, rappeler `GET /api/v1/session` pour recharger le jeton.
 servers:
   - url: http://localhost:8080
     description: Serveur de développement
@@ -25,6 +28,8 @@ tags:
     description: UC1, écarts d'un segment
   - name: Competences
     description: UC2, une compétence et ses preuves
+  - name: Session
+    description: Connexion, déconnexion et utilisateur courant
 security:
   - cookieAuth: []
 paths:
@@ -211,12 +216,110 @@ paths:
           $ref: '#/components/responses/Introuvable'
         '503':
           $ref: '#/components/responses/Indisponible'
+  /api/v1/session:
+    get:
+      tags: [Session]
+      operationId: obtenirUtilisateurCourant
+      summary: L'utilisateur connecté
+      description: |
+        Renvoie l'identifiant et les rôles de la session en cours. Sans session, répond 401. À appeler au
+        démarrage de l'interface et après chaque connexion ou déconnexion : la réponse (même un 401)
+        écrit aussi le cookie `XSRF-TOKEN`.
+      responses:
+        '200':
+          description: Utilisateur connecté
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Utilisateur'
+              example:
+                identifiant: responsable.formation
+                roles: [RESPONSABLE]
+        '401':
+          $ref: '#/components/responses/NonConnecte'
+    post:
+      tags: [Session]
+      operationId: ouvrirSession
+      summary: Se connecter
+      description: |
+        Ouvre une session. Les identifiants sont envoyés en formulaire (`application/x-www-form-urlencoded`),
+        avec le jeton CSRF dans l'en-tête `X-XSRF-TOKEN`. La réponse est la même que l'identifiant soit
+        inconnu ou le mot de passe faux. Le serveur change l'identifiant de session à la connexion.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [identifiant, motDePasse]
+              properties:
+                identifiant:
+                  type: string
+                motDePasse:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Session ouverte
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Utilisateur'
+              example:
+                identifiant: responsable.formation
+                roles: [RESPONSABLE]
+        '401':
+          description: Identifiant ou mot de passe incorrect.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Probleme'
+              example:
+                type: about:blank
+                title: Non connecté
+                status: 401
+                detail: Identifiant ou mot de passe incorrect.
+                instance: /api/v1/session
+        '403':
+          description: Jeton CSRF absent ou invalide.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Probleme'
+              example:
+                type: about:blank
+                title: Accès interdit
+                status: 403
+                detail: Votre rôle ne permet pas cette action.
+                instance: /api/v1/session
+    delete:
+      tags: [Session]
+      operationId: fermerSession
+      summary: Se déconnecter
+      description: |
+        Ferme la session. Le jeton CSRF est demandé dans l'en-tête `X-XSRF-TOKEN`. Répond 204 même s'il
+        n'y avait plus de session.
+      security: []
+      responses:
+        '204':
+          description: Session fermée
+        '403':
+          description: Jeton CSRF absent ou invalide.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Probleme'
+              example:
+                type: about:blank
+                title: Accès interdit
+                status: 403
 components:
   securitySchemes:
     cookieAuth:
       type: apiKey
       in: cookie
-      name: SESSION
+      name: JSESSIONID
   parameters:
     Domaine:
       name: domaine
@@ -480,6 +583,18 @@ components:
             $ref: '#/components/schemas/ModuleTraitant'
         preuves:
           $ref: '#/components/schemas/PagePreuves'
+    Utilisateur:
+      type: object
+      required: [identifiant, roles]
+      properties:
+        identifiant:
+          type: string
+        roles:
+          type: array
+          description: Rôles de l'utilisateur, sans le préfixe `ROLE_`.
+          items:
+            type: string
+            enum: [RESPONSABLE, MEMBRE_CONSEIL, ENSEIGNANT, ADMINISTRATEUR]
     Probleme:
       type: object
       description: Erreur au format RFC 9457.
