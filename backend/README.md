@@ -31,6 +31,7 @@ Flyway, Spring Data JDBC, JdbcClient, Spring Batch, registre d'événements de S
 et sa migration sont des ressources de test, aucune table métier n'existe encore.
 `GestionnaireErreursTest` vérifie que les erreurs sortent au format RFC 9457 (`application/problem+json`) sans détail interne.
 `JournalisationTest` vérifie les journaux JSON, l'identifiant de requête (`X-Request-Id`) et l'absence de secret ou de texte d'offre dans les journaux.
+`MigrationsParModuleTest` et `SchemaParModuleTest` vérifient les règles de migration (un schéma et un historique par module, ADR-029) et l'accès de Spring Data JDBC au schéma d'un module. Les règles sont dans `src/main/resources/db/migration/LISEZ-MOI.md`.
 
 ## Lancer le serveur avec la base de développement
 

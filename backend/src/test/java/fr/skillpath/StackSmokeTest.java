@@ -35,6 +35,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
  * d'événements de Spring Modulith, sur un vrai PostgreSQL 18 démarré en conteneur (ADR-016).
  */
 @SpringBootTest(properties = {
+        "spring.flyway.enabled=true",
         "spring.flyway.locations=classpath:db/test-pile",
         "spring.batch.jdbc.initialize-schema=always",
         "spring.modulith.events.jdbc.schema-initialization.enabled=true"
