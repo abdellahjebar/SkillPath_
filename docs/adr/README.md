@@ -1,6 +1,6 @@
 # Décisions d'architecture (ADR)
 
-Une décision par fichier : contexte, décision, preuves, conséquences, alternatives. Les ADR 001 à 017 ont été décidées le 8 novembre 2026 à l'issue de la lecture du dossier de cadrage (version 0.3) ; les ADR 020 à 027 sont nouvelles. Les ADR 018 et 019 (mesures d'extraction) seront ajoutées après les premières mesures. Une décision peut être rouverte par une fiche écrite dans une pull request.
+Une décision par fichier : contexte, décision, preuves, conséquences, alternatives. Les ADR 001 à 017 ont été décidées le 8 novembre 2026 à l'issue de la lecture du dossier de cadrage (version 0.3) ; les ADR 020 à 027 sont nouvelles. L'ADR 028 a été décidée le 23 novembre 2026. Les ADR 018 et 019 (mesures d'extraction) seront ajoutées après les premières mesures. Une décision peut être rouverte par une fiche écrite dans une pull request.
 
 | ADR | Titre | Statut |
 |---|---|---|
@@ -29,5 +29,6 @@ Une décision par fichier : contexte, décision, preuves, conséquences, alterna
 | [ADR-025](adr-025.md) | Déduplication des offres | Décidé le 8 novembre 2026 |
 | [ADR-026](adr-026.md) | Instantanés et gel | Décidé le 8 novembre 2026 |
 | [ADR-027](adr-027.md) | Clé naturelle et texte exploitable | Décidé le 8 novembre 2026 |
+| [ADR-028](adr-028.md) | Accès à la base de données | Décidé le 23 novembre 2026 |
 
 [Références bibliographiques](../references.md)

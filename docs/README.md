@@ -2,7 +2,7 @@
 
 | Dossier | Contenu | État |
 |---|---|---|
-| [adr/](adr/README.md) | Fiches de décision d'architecture, une par fichier (ADR 001 à 017 et 020 à 027) | Décidées le 8 novembre 2026 ; ADR 018 et 019 à venir après les mesures |
+| [adr/](adr/README.md) | Fiches de décision d'architecture, une par fichier (ADR 001 à 017, 020 à 027 et 028) | Décidées le 8 novembre 2026, sauf l'ADR 028 (23 novembre 2026) ; ADR 018 et 019 à venir après les mesures |
 | [architecture/](architecture/vue-densemble.md) | Schémas Mermaid : conteneurs et sept modules, collecte, consultation, cycle de vie des données | Rédigé |
 | [GUIDE-EQUIPE.md](GUIDE-EQUIPE.md) | Guide d'intégration : par où commencer | Rédigé |
 | [repartition.md](repartition.md) | Les quinze lots et qui prend quoi | À compléter par l'équipe |
