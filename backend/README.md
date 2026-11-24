@@ -32,6 +32,24 @@ et sa migration sont des ressources de test, aucune table métier n'existe encor
 `GestionnaireErreursTest` vérifie que les erreurs sortent au format RFC 9457 (`application/problem+json`) sans détail interne.
 `JournalisationTest` vérifie les journaux JSON, l'identifiant de requête (`X-Request-Id`) et l'absence de secret ou de texte d'offre dans les journaux.
 
+## Lancer le serveur avec la base de développement
+
+Chaque membre a sa propre base PostgreSQL 18, lancée par Docker Compose ; sa structure vient des
+migrations Flyway, appliquées au démarrage du serveur. Les données ne sont pas partagées : tout ce
+dont l'équipe a besoin se recrée depuis le dépôt.
+
+1. Une seule fois : copier `.env.example` vers `.env` et y choisir un mot de passe (`.env` n'est
+   jamais versionné).
+2. Lancer le serveur avec le profil `dev` : dans l'éditeur (variable `spring.profiles.active=dev`) ou
+   avec `mvn spring-boot:run -Dspring-boot.run.profiles=dev`. Le serveur lance lui-même la base du
+   fichier `compose.yaml` et s'y connecte (module `spring-boot-docker-compose`, actif seulement en
+   profil `dev`, absent du jar de production).
+3. La base reste allumée à l'arrêt du serveur : `docker compose stop` l'éteint, `docker compose up -d`
+   la rallume sans le serveur.
+4. Repartir de zéro : `docker compose down -v` efface la base et son volume.
+
+Les tests et la CI n'utilisent pas cette base : ils lancent la leur (Testcontainers).
+
 ## Où mettre son code
 
 Dans le paquet de son module (`fr.skillpath.<module>`). L'interface publique et les objets échangés

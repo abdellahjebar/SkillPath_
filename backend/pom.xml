@@ -51,6 +51,13 @@
       <artifactId>spring-modulith-starter-core</artifactId>
     </dependency>
 
+    <!-- Développement : lance la base du fichier compose.yaml (profil dev seulement, voir application-dev.properties) -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-docker-compose</artifactId>
+      <optional>true</optional>
+    </dependency>
+
     <!-- Accès aux données : Spring Data JDBC pour les agrégats, JdbcClient pour le SQL explicite -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
