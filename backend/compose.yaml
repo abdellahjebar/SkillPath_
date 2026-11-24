@@ -1,0 +1,24 @@
+# Base de données de développement : PostgreSQL 18, la même version que les tests (ADR-008).
+# Lancer : copier .env.example vers .env, puis « docker compose up -d ».
+# Repartir de zéro : « docker compose down -v » (efface le volume).
+services:
+  base:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: skillpath
+      POSTGRES_DB: skillpath
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Copier .env.example vers .env et choisir un mot de passe}
+    ports:
+      # Limité à la machine locale.
+      - "127.0.0.1:5432:5432"
+    volumes:
+      # Depuis PostgreSQL 18, l'image déclare son volume sur /var/lib/postgresql (et non plus .../data).
+      - base-donnees:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U skillpath -d skillpath"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  base-donnees:
