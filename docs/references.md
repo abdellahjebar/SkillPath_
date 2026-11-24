@@ -119,3 +119,14 @@ Numérotation identique à celle du dossier de cadrage, version 0.2. Les numéro
 115. Spring, *JdbcOperations* (Javadoc, JdbcClient depuis la version 6.1), consultée le 23 novembre 2026. <https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcOperations.html>
 116. Redgate, *Flyway : PostgreSQL Database* (page mise à jour le 19 novembre 2026), consultée le 23 novembre 2026. <https://documentation.red-gate.com/fd/postgresql-database-277579325.html>
 117. Hibernate, *Hibernate Query Language 6.6* (clause `on conflict`), consultée le 23 novembre 2026. <https://docs.hibernate.org/orm/6.6/querylanguage/html_single/Hibernate_Query_Language.html>
+118. PostgreSQL, *Documentation 18 : Schemas*, consultée le 24 novembre 2026. <https://www.postgresql.org/docs/18/ddl-schemas.html>
+119. PostgreSQL, *Documentation 18 : Privileges*, consultée le 24 novembre 2026. <https://www.postgresql.org/docs/18/ddl-priv.html>
+120. Redgate, *Flyway : Versioned Migrations*, consultée le 24 novembre 2026. <https://documentation.red-gate.com/fd/versioned-migrations-273973333.html>
+121. Redgate, *Flyway : Default Schema Setting*, consultée le 24 novembre 2026. <https://documentation.red-gate.com/fd/flyway-default-schema-setting-277578987.html>
+122. Redgate, *Flyway : Schemas Setting*, consultée le 24 novembre 2026. <https://documentation.red-gate.com/fd/environment-schemas-setting-277578932.html>
+123. Redgate, *Flyway : Table Setting* (table d'historique), consultée le 24 novembre 2026. <https://documentation.red-gate.com/fd/flyway-table-setting-277579042.html>
+124. Redgate, *Flyway : Out Of Order Setting*, consultée le 24 novembre 2026. <https://documentation.red-gate.com/fd/reference/configuration/flyway-namespace/flyway-out-of-order-setting>
+125. Redgate, *Flyway : Validate On Migrate Setting*, consultée le 24 novembre 2026. <https://documentation.red-gate.com/fd/reference/configuration/flyway-namespace/flyway-validate-on-migrate-setting>
+126. J. Hayward, *Handling multiple schemas in the same database with Flyway*, Redgate, 4 janvier 2021, consultée le 24 novembre 2026. <https://www.red-gate.com/blog/handling-multiple-schemas-in-the-same-database-with-flyway/>
+127. Spring, *Table* (Javadoc de Spring Data Relational 3.5.13, attribut `schema`), consultée le 24 novembre 2026. <https://docs.spring.io/spring-data/relational/docs/3.5.x/api/org/springframework/data/relational/core/mapping/Table.html>
+128. Spring, *NamingStrategy* (Javadoc de Spring Data Relational 3.5.13, méthode `getSchema`), consultée le 24 novembre 2026. <https://docs.spring.io/spring-data/relational/docs/3.5.x/api/org/springframework/data/relational/core/mapping/NamingStrategy.html>
