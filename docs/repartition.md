@@ -14,13 +14,13 @@ Le projet est découpé en **quinze lots**. Chacun choisit les siens dans le gro
 | 2 | Contrat d'API et client généré | Contrat OpenAPI versionné, client TypeScript généré, serveur factice, test de dérive | 1 | S | Abdellah | à choisir | Pris |
 | 3 | Plateforme | Docker Compose (avec et sans le service Python), CI, images, règles de migration | 1 | M | Abdellah | à choisir | Pris |
 | 4 | Pipeline | Travail unique de nuit (Ingestion, Extraction, Analytique), reprise, deux alertes | 5, 8, 10 | S | Abdellah | à choisir | Pris |
-| 5 | Ingestion | Adaptateur de source, téléchargement reprenable, filtre du domaine, déduplication, texte exploitable, journal | 1, 6 | L | à choisir | à choisir | À choisir |
+| 5 | Ingestion | Adaptateur de source, téléchargement reprenable, filtre du domaine, déduplication, texte exploitable, journal | 1, 6 | L | Abdelouarite | à choisir | Pris |
 | 6 | Référentiel | ESCO, alias, liste locale, domaine, référentiel de la formation, table de correspondance | 1 | M | Bouchra | à choisir | Pris |
 | 7 | Programmes | Formations, versions, UE, modules, niveaux, import, correction par l'enseignant, publication | 1, 6, 8 | M | Elhadj Oumar | à choisir | Pris |
-| 8 | Extraction | Dictionnaire, mentions, banc d'évaluation, garde-fou de CI | 6, 5 | L | à choisir | à choisir | À choisir |
+| 8 | Extraction | Dictionnaire, mentions, banc d'évaluation, garde-fou de CI | 6, 5 | L | Abdelouarite | à choisir | Pris |
 | 9 | Service d'IA | Conteneur Python d'embeddings, mesure de trois modèles, règle des 5 points de F1 (conditionnel) | 8, 15 | M | Bouchra | à choisir | Pris |
 | 10 | Analytique | Demande, intervalles de Wilson, instantanés, couverture, écart, volume de collecte, export CSV | 8, 7 | M | Elhadj Oumar | à choisir | Pris |
-| 11 | Accès | Comptes, rôles, sécurité, protection CSRF pour application monopage | 1 | S | à choisir | à choisir | À choisir |
+| 11 | Accès | Comptes, rôles, sécurité, protection CSRF pour application monopage | 1 | S | Abdellah | à choisir | Pris |
 | 12 | Interface | Cadre Angular, tableau de bord (écarts et preuves), écrans d'administration et de correction | 2 | L | Maimouna | à choisir | Pris |
 | 13 | Données de développement | Jeux d'exemple synthétiques, jeu agrégé réaliste, script de chargement | 1 | S | Elhadj Oumar | à choisir | Pris |
 | 14 | Tests de bout en bout et documentation | Parcours de bout en bout, tests de conformité transversaux, fiches de décision, document d'interfaces | tous | M | à choisir | à choisir | À choisir |
@@ -36,13 +36,13 @@ Le projet est découpé en **quinze lots**. Chacun choisit les siens dans le gro
 | 2 | Contrat d'API et client généré | R | | | | |
 | 3 | Plateforme | R | | | | |
 | 4 | Pipeline | R | | | | |
-| 5 | Ingestion | | | | | |
+| 5 | Ingestion | | R | | | |
 | 6 | Référentiel |  |  |  | R |  |
 | 7 | Programmes |  |  |  |  | R |
-| 8 | Extraction | | | | | |
+| 8 | Extraction | | R | | | |
 | 9 | Service d'IA |  |  |  | R |  |
 | 10 | Analytique |  |  |  |  | R |
-| 11 | Accès | | | | | |
+| 11 | Accès | R | | | | |
 | 12 | Interface |  |  | R |  |  |
 | 13 | Données de développement |  |  |  |  | R |
 | 14 | Tests de bout en bout et documentation | | | | | |
@@ -65,12 +65,13 @@ Le projet est découpé en **quinze lots**. Chacun choisit les siens dans le gro
 
 ## Lots déjà pris
 
-- Abdellah : squelette et noyau commun (1), contrat d'API (2), plateforme (3), Pipeline (4).
+- Abdellah : squelette et noyau commun (1), contrat d'API (2), plateforme (3), Pipeline (4) et Accès (11).
+- Abdelouarite : Ingestion (5) et Extraction (8).
 - Maimouna : Interface (12) et Annotation (15).
 - Bouchra : Référentiel (6) et Service d'IA (9).
 - Elhadj Oumar : Programmes (7), Analytique (10) et Données de développement (13).
 
-Restent à choisir dans le groupe : Ingestion (5), Extraction (8), Accès (11) et Tests de bout en bout et documentation (14), avec le [catalogue des lots](catalogue-des-lots.md) comme guide. Les suppléants sont aussi à choisir.
+Reste à choisir dans le groupe : Tests de bout en bout et documentation (14), avec le [catalogue des lots](catalogue-des-lots.md) comme guide. Les suppléants sont aussi à choisir.
 
 ## Travaux hors lots
 
