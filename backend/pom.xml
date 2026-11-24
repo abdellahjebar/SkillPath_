@@ -50,6 +50,13 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
+    <!-- Argon2id : le hachage de Spring Security (Argon2PasswordEncoder) demande BouncyCastle -->
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk18on</artifactId>
+      <!-- Version non gérée par Spring Boot : dernière version publiée sur Maven Central le 24 novembre 2026 -->
+      <version>1.87</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework.modulith</groupId>
       <artifactId>spring-modulith-starter-core</artifactId>
