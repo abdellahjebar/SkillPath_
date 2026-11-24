@@ -4,7 +4,7 @@
 
 # Étape 1 : construire le jar et le découper en couches (documentation de Spring Boot 3.5,
 # « Dockerfiles » : java -Djarmode=tools ... extract --layers).
-FROM maven:3.9-eclipse-temurin-25 AS construction
+FROM maven:3.9-eclipse-temurin-26 AS construction
 WORKDIR /construction
 COPY pom.xml .
 COPY src ./src
