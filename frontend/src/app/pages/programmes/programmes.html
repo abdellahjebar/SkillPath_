@@ -1,0 +1,128 @@
+<section class="programmes-page" aria-labelledby="programmes-title">
+  <header class="page-heading">
+    <div>
+      <h1 id="programmes-title">Programmes</h1>
+      <p>Formation M1 MIAGE</p>
+    </div>
+
+    <div class="role-actions" aria-label="Actions selon le rôle">
+      <div class="role-action">
+        <span class="role-label admin-role">Administrateur</span>
+        <button type="button" class="action-button secondary-action" [disabled]="!programmeDataAvailable || !roleContextAvailable" aria-describedby="admin-action-status">
+          <span class="action-icon" aria-hidden="true">↑</span>
+          Importer / mettre à jour
+        </button>
+      </div>
+      <div class="role-action">
+        <span class="role-label manager-role">Responsable de formation</span>
+        <button type="button" class="action-button publish-action" [disabled]="!programmeDataAvailable || !roleContextAvailable" aria-describedby="publish-action-status">
+          <span class="action-icon" aria-hidden="true">↗</span>
+          Publier une version
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <p class="actions-status" id="admin-action-status">
+    Les actions d’import et de publication seront disponibles après intégration des données Programmes et du contrôle des rôles.
+  </p>
+  <span class="visually-hidden" id="publish-action-status">Réservé au responsable de formation ; contrôle d’accès non disponible.</span>
+
+  <section class="versions-panel" aria-labelledby="versions-title">
+    <h2 id="versions-title">Versions du programme</h2>
+    <div class="versions-content">
+      <div class="version-card draft-version" aria-label="Version brouillon indisponible">
+        <span class="version-icon" aria-hidden="true">✎</span>
+        <span class="version-copy">
+          <strong>Brouillon</strong>
+          <span class="version-state">Aucune version disponible</span>
+        </span>
+      </div>
+
+      <div class="version-card published-version" aria-label="Version publiée indisponible">
+        <span class="version-icon" aria-hidden="true">✓</span>
+        <span class="version-copy">
+          <strong>Publiée</strong>
+          <span class="version-state">Aucune version disponible</span>
+        </span>
+      </div>
+
+      <div class="validity-period">
+        <h3>Période de validité</h3>
+        <p>— <span aria-hidden="true">→</span> —</p>
+      </div>
+    </div>
+    <p class="version-rule">
+      <strong>La publication fige la version.</strong>
+      <span>Les périodes de validité des versions publiées ne se chevauchent pas.</span>
+    </p>
+  </section>
+
+  <div class="programmes-columns">
+    <section class="content-panel structure-panel" aria-labelledby="structure-title">
+      <div class="panel-heading">
+        <div>
+          <h2 id="structure-title">Structure de la formation</h2>
+          <p>7 UE · 23 matières prévues à l’import initial</p>
+        </div>
+        <span class="structure-status">Structure non importée</span>
+      </div>
+
+      <ol class="navigation-steps" aria-label="Parcours dans la structure">
+        <li class="step-current"><span>1</span> UE</li>
+        <li><span>2</span> Matière / module</li>
+        <li><span>3</span> Détail</li>
+      </ol>
+
+      <div class="structure-empty" role="status">
+        <span class="empty-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M5 13h15l4 4h19v22H5V13Z" />
+            <path d="M5 19h38" />
+          </svg>
+        </span>
+        <h3>Aucune structure de programme disponible</h3>
+        <p>Les 7 UE et les 23 matières apparaîtront après l’import du programme officiel.</p>
+      </div>
+    </section>
+
+    <section class="content-panel detail-panel" aria-labelledby="module-detail-title">
+      <div class="panel-heading detail-heading">
+        <div>
+          <h2 id="module-detail-title">Détail du module</h2>
+          <p>Aucun module sélectionné</p>
+        </div>
+      </div>
+
+      <div class="detail-empty">
+        <span class="book-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M24 14c-5-4-11-4-17-2v23c6-2 12-2 17 2m0-23c5-4 11-4 17-2v23c-6-2-12-2-17 2m0-23v23" />
+          </svg>
+        </span>
+        <p>Sélectionnez une matière / un module pour consulter son détail.</p>
+      </div>
+
+      <section class="detail-section" aria-labelledby="skills-title">
+        <h3 id="skills-title">Compétences associées</h3>
+        <p class="section-empty">Aucune compétence à afficher.</p>
+      </section>
+
+      <section class="detail-section" aria-labelledby="levels-title">
+        <h3 id="levels-title">Niveau de traitement</h3>
+        <ol class="level-list">
+          <li><span class="level-number level-zero">0</span><span>Non abordée</span></li>
+          <li><span class="level-number level-one">1</span><span>Mentionnée</span></li>
+          <li><span class="level-number level-two">2</span><span>Mise en pratique</span></li>
+          <li><span class="level-number level-three">3</span><span>Évaluée</span></li>
+        </ol>
+      </section>
+
+      <section class="detail-section history-section" aria-labelledby="history-title">
+        <h3 id="history-title">Historique des corrections</h3>
+        <p class="section-empty">Aucune correction à afficher.</p>
+        <p class="teacher-scope">Un enseignant ne corrige que les modules dont il est responsable.</p>
+      </section>
+    </section>
+  </div>
+</section>

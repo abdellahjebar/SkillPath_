@@ -1,0 +1,125 @@
+:host { display: block; }
+
+.administration-page {
+  --ink: #172d43;
+  --muted: #536b7e;
+  --border: #d7e1e7;
+  --teal: #126d6a;
+  --blue: #3674b9;
+  display: grid;
+  gap: 17px;
+  color: var(--ink);
+}
+
+.page-heading h1 {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 700;
+  letter-spacing: -.04em;
+}
+.page-heading p { margin: 5px 0 0; color: var(--muted); font-size: 15px; }
+.availability-note { margin: -8px 0 0; color: #637889; font-size: 12px; text-align: right; }
+
+.administration-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+  align-items: stretch;
+}
+
+.admin-panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 19px 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgb(24 51 67 / 3%);
+}
+
+.panel-heading { display: flex; align-items: center; gap: 12px; padding-bottom: 13px; border-bottom: 1px solid #e0e7ec; }
+.panel-heading h2 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -.025em; }
+.panel-icon { display: grid; width: 36px; height: 36px; flex: 0 0 36px; place-items: center; border-radius: 8px; background: #e9f5f2; color: var(--teal); }
+.panel-icon svg { width: 23px; height: 23px; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+.accounts-icon { background: #edf3fa; color: #426f96; }
+.collections-icon { background: #e7f4f3; color: #137d77; }
+.log-icon { background: #eff3f7; color: #486c87; }
+
+.source-list { display: grid; gap: 10px; margin-top: 14px; }
+.source-card { display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 11px 12px; border: 1px solid #e0e7ec; border-radius: 8px; background: #fbfcfd; }
+.source-icon { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 7px; background: #e7f4f1; color: var(--teal); }
+.source-icon svg { width: 24px; height: 24px; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+.france-travail-icon { background: #edf3fa; color: var(--blue); }
+.source-copy { min-width: 0; }
+.source-copy h3 { margin: 0; font-size: 14px; font-weight: 700; }
+.source-copy p { margin: 4px 0 0; color: #5b7182; font-size: 12px; line-height: 1.4; }
+.source-status { display: grid; min-width: 57px; justify-items: start; gap: 3px; padding-left: 11px; border-left: 1px solid #dce5ea; color: #5d7282; font-size: 11px; }
+.source-status strong { color: var(--ink); font-size: 14px; }
+
+.panel-actions { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 15px; }
+.admin-action { display: inline-flex; min-height: 39px; align-items: center; justify-content: center; gap: 8px; padding: 0 12px; border: 1px solid #bdcbd4; border-radius: 7px; font: inherit; font-size: 12px; font-weight: 650; }
+.secondary-action { background: #fff; color: #34536a; }
+.launch-action { border-color: var(--teal); background: var(--teal); color: #fff; }
+.admin-action:disabled { border-color: #d5dde2; background: #eef2f5; color: #7b8b97; cursor: not-allowed; }
+.launch-action:disabled { border-color: #b7d2ce; background: #d9e8e5; color: #52736f; }
+.role-label { color: #637889; font-size: 11px; white-space: nowrap; }
+
+.role-list { display: flex; flex-wrap: wrap; gap: 7px; margin: 13px 0 11px; padding: 0; list-style: none; }
+.role-list li { padding: 5px 9px; border-radius: 18px; font-size: 11px; font-weight: 650; white-space: nowrap; }
+.role-admin { background: #e5f3ef; color: #176d64; }
+.role-manager { background: #eaf2fc; color: #346ba4; }
+.role-council { background: #fbf1df; color: #8a6524; }
+.role-teacher { background: #e9f5f7; color: #286e7d; }
+
+.account-table-wrap,
+.log-table-wrap { overflow-x: auto; }
+.account-table-wrap table,
+.log-table-wrap table { width: 100%; border-collapse: collapse; text-align: left; }
+.account-table-wrap thead,
+.log-table-wrap thead { background: #edf2f6; }
+.account-table-wrap th,
+.log-table-wrap th { padding: 9px 10px; color: #314d61; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.account-table-wrap th:first-child,
+.log-table-wrap th:first-child { border-radius: 5px 0 0 5px; }
+.account-table-wrap th:last-child,
+.log-table-wrap th:last-child { border-radius: 0 5px 5px 0; }
+.empty-cell { height: 70px; padding: 12px; border-bottom: 1px solid #e2e9ed; color: #6a7f8e; font-size: 12px; text-align: center; }
+.accounts-panel .panel-actions { padding-top: 12px; }
+
+.schedule-line { display: flex; align-items: center; gap: 9px; margin: 15px 0 0; color: #334f64; font-size: 14px; }
+.schedule-icon { color: var(--teal); font-size: 19px; }
+.pipeline-note { margin: 9px 0 0 28px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.collection-action { margin-top: 15px; padding-top: 0; }
+.launch-note { margin: 7px 0 0; color: #718494; font-size: 11px; }
+.collection-state { display: grid; gap: 10px; margin: auto 0 0; padding-top: 14px; }
+.collection-state div { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; }
+.collection-state dt { color: #40596d; font-size: 12px; font-weight: 650; }
+.collection-state dd { margin: 0; color: #536b7e; font-weight: 700; }
+
+.log-table-wrap { margin-top: 14px; }
+.alert-rules { display: flex; gap: 11px; margin-top: auto; padding: 12px; border: 1px solid #cbddea; border-radius: 7px; background: #f0f6fb; color: #3b586e; }
+.alert-icon { display: grid; width: 20px; height: 20px; flex: 0 0 20px; place-items: center; border: 1px solid #5080a3; border-radius: 50%; color: #376c92; font-size: 12px; font-weight: 750; }
+.alert-rules h3 { margin: 0; color: #294c65; font-size: 13px; }
+.alert-rules ul { display: grid; gap: 4px; margin: 6px 0 0; padding-left: 17px; color: #496276; font-size: 12px; }
+
+@media (max-width: 900px) {
+  .administration-grid { grid-template-columns: 1fr; }
+  .admin-panel { min-height: 0; }
+  .alert-rules { margin-top: 18px; }
+}
+
+@media (max-width: 520px) {
+  .administration-page { gap: 14px; }
+  .admin-panel { padding: 15px; }
+  .source-card { grid-template-columns: 36px minmax(0, 1fr); gap: 9px; }
+  .source-icon { width: 34px; height: 34px; }
+  .source-status { grid-column: 2; grid-template-columns: auto auto; align-items: center; justify-items: start; gap: 5px; padding: 0; border: 0; }
+  .source-status strong { font-size: 12px; }
+  .panel-actions { flex-wrap: wrap; }
+  .admin-action { max-width: 100%; }
+  .role-list { gap: 5px; }
+  .role-list li { font-size: 10px; }
+  .schedule-line { align-items: flex-start; font-size: 13px; }
+  .pipeline-note { margin-left: 0; }
+}

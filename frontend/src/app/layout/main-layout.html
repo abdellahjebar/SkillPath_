@@ -1,0 +1,28 @@
+<header class="layout-header">
+  <div class="layout-header-inner">
+    <a class="brand" routerLink="/tableau-de-bord" aria-label="SkillPath Audit, accueil">
+      <span class="brand-mark" aria-hidden="true">SP</span>
+      <span class="brand-name"><span>SkillPath</span><span class="brand-audit">Audit</span></span>
+    </a>
+
+    <nav class="primary-navigation" aria-label="Navigation principale">
+      <a routerLink="/tableau-de-bord" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">Tableau de bord</a>
+      <a routerLink="/programmes" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">Programmes</a>
+      <a routerLink="/administration" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">Administration</a>
+    </nav>
+
+    <div class="account-area" aria-label="Compte utilisateur">
+      <span class="account-icon" role="img" aria-label="Profil utilisateur">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.25" />
+          <path d="M5.5 20c.5-3.3 2.8-5.2 6.5-5.2s6 1.9 6.5 5.2" />
+        </svg>
+      </span>
+      <span class="account-chevron" aria-hidden="true"></span>
+    </div>
+  </div>
+</header>
+
+<main class="layout-content">
+  <router-outlet />
+</main>

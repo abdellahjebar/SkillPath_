@@ -1,0 +1,203 @@
+<section class="administration-page" aria-labelledby="administration-title">
+  <header class="page-heading">
+    <h1 id="administration-title">Administration</h1>
+    <p>Sources, comptes et collectes</p>
+  </header>
+
+  <p class="availability-note" id="administration-actions-status">
+    Les actions restent indisponibles tant que les services d’administration et le rôle de la session ne sont pas connectés.
+  </p>
+
+  <div class="administration-grid">
+    <section class="admin-panel sources-panel" aria-labelledby="sources-title">
+      <div class="panel-heading">
+        <span class="panel-icon sources-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <ellipse cx="16" cy="7" rx="10" ry="4" />
+            <path d="M6 7v18c0 2.2 4.5 4 10 4s10-1.8 10-4V7M6 13c0 2.2 4.5 4 10 4s10-1.8 10-4M6 19c0 2.2 4.5 4 10 4s10-1.8 10-4" />
+          </svg>
+        </span>
+        <h2 id="sources-title">Sources de données</h2>
+      </div>
+
+      <div class="source-list">
+        <article class="source-card">
+          <span class="source-icon lba-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <rect x="4" y="11" width="24" height="17" rx="2.5" />
+              <path d="M11.5 11V7h9v4M4 16h24M13 16v3h6v-3" />
+            </svg>
+          </span>
+          <div class="source-copy">
+            <h3>La Bonne Alternance</h3>
+            <p>Source des offres d’alternance · export quotidien</p>
+          </div>
+          <div class="source-status" aria-label="État de la source non disponible">
+            <span>État</span>
+            <strong>—</strong>
+          </div>
+        </article>
+
+        <article class="source-card">
+          <span class="source-icon france-travail-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M6 27V17m10 10V7m10 20V12" />
+            </svg>
+          </span>
+          <div class="source-copy">
+            <h3>France Travail</h3>
+            <p>Statistiques de contexte sur les volumes</p>
+          </div>
+          <div class="source-status" aria-label="État de la source non disponible">
+            <span>État</span>
+            <strong>—</strong>
+          </div>
+        </article>
+      </div>
+
+      <div class="panel-actions">
+        <button
+          class="admin-action secondary-action"
+          type="button"
+          [disabled]="!administrationActionsEnabled"
+          aria-describedby="administration-actions-status"
+        >
+          <span aria-hidden="true">⚙</span>
+          Gérer les sources
+        </button>
+        <span class="role-label">Administrateur</span>
+      </div>
+    </section>
+
+    <section class="admin-panel accounts-panel" aria-labelledby="accounts-title">
+      <div class="panel-heading">
+        <span class="panel-icon accounts-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <circle cx="12" cy="10" r="4" />
+            <path d="M4 26c.4-4.3 3.2-7 8-7s7.6 2.7 8 7M22 7a4 4 0 0 1 0 8m2 4c2.6.7 4 2.4 4 5" />
+          </svg>
+        </span>
+        <h2 id="accounts-title">Comptes et rôles</h2>
+      </div>
+
+      <ul class="role-list" aria-label="Rôles prévus dans le projet">
+        <li class="role-admin">Administrateur</li>
+        <li class="role-manager">Responsable</li>
+        <li class="role-council">Membre du conseil</li>
+        <li class="role-teacher">Enseignant</li>
+      </ul>
+
+      <div class="account-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Compte</th>
+              <th scope="col">Rôle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2" class="empty-cell">Aucun compte disponible dans cette vue.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel-actions">
+        <button
+          class="admin-action secondary-action"
+          type="button"
+          [disabled]="!administrationActionsEnabled"
+          aria-describedby="administration-actions-status"
+        >
+          <span aria-hidden="true">♙</span>
+          Gérer les comptes et les rôles
+        </button>
+        <span class="role-label">Administrateur</span>
+      </div>
+    </section>
+
+    <section class="admin-panel collections-panel" aria-labelledby="collections-title">
+      <div class="panel-heading">
+        <span class="panel-icon collections-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect x="4" y="7" width="24" height="21" rx="2.5" />
+            <path d="M10 4v6m12-6v6M4 13h24" />
+          </svg>
+        </span>
+        <h2 id="collections-title">Collectes</h2>
+      </div>
+
+      <p class="schedule-line">
+        <span class="schedule-icon" aria-hidden="true">◷</span>
+        <span><strong>Planification :</strong> chaque nuit après 03 h (Europe/Paris)</span>
+      </p>
+      <p class="pipeline-note">Un travail unique enchaîne ingestion, extraction puis analytique.</p>
+
+      <div class="panel-actions collection-action">
+        <button
+          class="admin-action launch-action"
+          type="button"
+          [disabled]="!administrationActionsEnabled"
+          aria-describedby="administration-actions-status launch-note"
+        >
+          <span aria-hidden="true">▶</span>
+          Lancer une collecte
+        </button>
+        <span class="role-label">Administrateur</span>
+      </div>
+      <p class="launch-note" id="launch-note">Le déclenchement manuel n’est pas connecté.</p>
+
+      <dl class="collection-state">
+        <div>
+          <dt>Dernière collecte réussie</dt>
+          <dd>—</dd>
+        </div>
+        <div>
+          <dt>État en cours</dt>
+          <dd>—</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="admin-panel log-panel" aria-labelledby="log-title">
+      <div class="panel-heading">
+        <span class="panel-icon log-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect x="6" y="4" width="20" height="24" rx="2.5" />
+            <path d="M11 11h10M11 16h10M11 21h7" />
+          </svg>
+        </span>
+        <h2 id="log-title">Journal des collectes</h2>
+      </div>
+
+      <div class="log-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Date de collecte</th>
+              <th scope="col">Source</th>
+              <th scope="col">État</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="3" class="empty-cell">Aucun historique disponible.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <aside class="alert-rules" aria-labelledby="alert-rules-title">
+        <span class="alert-icon" aria-hidden="true">i</span>
+        <div>
+          <h3 id="alert-rules-title">Règles d’alerte prévues</h3>
+          <ul>
+            <li>Échec d’une étape</li>
+            <li>Aucune collecte réussie depuis 26 h</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+  </div>
+</section>
