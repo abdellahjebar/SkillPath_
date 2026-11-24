@@ -1,6 +1,6 @@
 # ESCO v1.2.1 FR : fichiers versionnés, source et chargement (lot 6, ADR-002)
 
-Cette notice décrit **où trouver ESCO et comment l'utiliser**. Ce dossier contient **4 fichiers d'ESCO** (environ 8,8 Mo), copiés tels quels depuis le téléchargement officiel. Les 14 autres fichiers du zip (environ 37 Mo, dont `occupationSkillRelations_fr.csv` de 28 Mo) ne sont **pas** versionnés : ils ne servent pas au projet. ESCO est un jeu de données public, téléchargeable gratuitement.
+Cette notice décrit **où trouver ESCO et comment l'utiliser**. Ce dossier contient **6 fichiers d'ESCO** (environ 13,5 Mo), copiés tels quels depuis le téléchargement officiel. Les 12 autres fichiers du zip (environ 32 Mo, dont `occupationSkillRelations_fr.csv` de 28 Mo) ne sont **pas** versionnés : ils ne servent pas au projet. ESCO est un jeu de données public, téléchargeable gratuitement.
 
 ## Source
 - Classification européenne des compétences, métiers et qualifications (ESCO), Commission européenne : https://esco.ec.europa.eu
@@ -10,10 +10,12 @@ Cette notice décrit **où trouver ESCO et comment l'utiliser**. Ce dossier cont
 ## Fichiers utilisés par le projet
 | Fichier | Contenu | Lignes (données) |
 |---|---|---|
-| `skills_fr.csv` | toutes les compétences (libellé, synonymes, description, URI) | 13 960 |
+| `skills_fr.csv` | toutes les compétences (libellé, synonymes, description, URI) | 13 960 lignes, 13 939 compétences distinctes (21 URI figurent deux fois, avec deux dates de modification : garder la plus récente) |
 | `digitalSkillsCollection_fr.csv` | sous-ensemble des compétences numériques | 1 284 |
 | `skillsHierarchy_fr.csv` | arborescence des compétences | 640 |
 | `skillGroups_fr.csv` | groupes de compétences | 640 |
+| `broaderRelationsSkillPillar_fr.csv` | liens parent/enfant de toutes les compétences (nécessaire pour le parent ESCO d'une compétence hors numérique) | 20 819 |
+| `transversalSkillsCollection_fr.csv` | compétences transversales (stockées, exclues du calcul de l'écart, ADR-006) | 95 |
 
 Les autres fichiers du zip (métiers, vert, recherche, langues, ISCO, dictionnaire) ne servent pas au projet pour l'instant.
 
@@ -24,6 +26,8 @@ Les autres fichiers du zip (métiers, vert, recherche, langues, ISCO, dictionnai
 | `digitalSkillsCollection_fr.csv` | `f5f4e0874f632705267157ac83690d1a9e125e9687eacf52541a3fb76c7f0215` |
 | `skillsHierarchy_fr.csv` | `549c847098ebc15766575ff06f2dec433e74360ec74de3b2d83c31a2b609b0e5` |
 | `skillGroups_fr.csv` | `d2f9616da23e5b39448933d55699e847253730f4e486681fa85a676079f5204f` |
+| `broaderRelationsSkillPillar_fr.csv` | `56b70f4852b1f53c6192c979310c34c93f95436621d907083cf0d55b51d8e42d` |
+| `transversalSkillsCollection_fr.csv` | `5b9ffe87e15ad502fb7770a53700dd1bfe2f9c43049613dd42faf2846e273951` |
 
 Windows (PowerShell) : `Get-FileHash .\skills_fr.csv -Algorithm SHA256`
 
@@ -34,6 +38,8 @@ Windows (PowerShell) : `Get-FileHash .\skills_fr.csv -Algorithm SHA256`
 - Ces constats alimentent `liste_locale.csv`, qui complète ESCO pour les termes absents (ADR-007).
 
 ## Choix de versionnement
+- Aucune compétence n'est perdue : `skills_fr.csv` contient les 13 939 compétences distinctes (13 960 lignes) avec leur libellé et leur description (les synonymes n'existent que pour 1 933 d'entre elles, dans ce même fichier).
+- Fichiers non versionnés : métiers (`occupations_fr.csv`, `occupationSkillRelations_fr.csv`, `broaderRelationsOccPillar_fr.csv`), `skillSkillRelations_fr.csv`, ISCO, collections vert, recherche, langues, DigComp, `greenShareOcc_fr.csv` et `dictionary_fr.csv`. À ajouter si un lot en a besoin.
 - Seuls les 4 fichiers utiles sont dans le dépôt (la version complète pèse 46 Mo). Une nouvelle version d'ESCO ajoutera une nouvelle copie dans l'historique Git : à ne faire que si nécessaire.
 - Le fichier `.gitattributes` de ce dossier garde les fichiers octet pour octet (sans lui, le `.gitattributes` du dépôt convertirait les fins de ligne et les SHA-256 ci-dessus ne correspondraient plus).
 - Ne jamais placer de données d'offres dans un dossier `data/`, `exports/` ou `offres/` : la CI les refuse.
