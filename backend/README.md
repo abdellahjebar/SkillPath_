@@ -72,7 +72,9 @@ Tout chemin demande une session, sauf la connexion. La session est un cookie ; l
 - Jeton CSRF : le cookie `XSRF-TOKEN` (lisible par JavaScript) est écrit à chaque réponse ; Angular le renvoie dans l'en-tête `X-XSRF-TOKEN`. Après une connexion ou une déconnexion, rappeler `GET /api/v1/session` pour recharger le jeton.
 - Les refus sont des erreurs RFC 9457 : 401 (pas de session, identifiant ou mot de passe faux) et 403 (rôle insuffisant ou jeton CSRF absent).
 - Dans un contrôleur : `@PreAuthorize("hasRole('" + Roles.ENSEIGNANT + "')")`, avec les constantes de `Roles`.
-- Il n'y a pas encore de comptes en base : personne ne peut se connecter sur le vrai serveur. Les tests (`SecuriteTest`) créent les leurs.
+- Les comptes sont dans le schéma `acces` (table `utilisateur`, rôles dans `utilisateur_role`). Mots de passe hachés avec Argon2id (paramètres minimaux de l'OWASP), de 15 à 128 caractères. L'identifiant ne tient pas compte de la casse.
+- Limitation par compte : 5 échecs en 15 minutes verrouillent le compte 15 minutes (réglable : `skillpath.acces.tentatives-max`, `skillpath.acces.fenetre`, `skillpath.acces.verrouillage`). La réponse est la même pour un compte inconnu, un mauvais mot de passe et un compte verrouillé.
+- Premier administrateur : au démarrage, s'il n'y en a aucun, le serveur le crée depuis les variables d'environnement `SKILLPATH_ACCES_ADMINISTRATEUR_IDENTIFIANT` et `SKILLPATH_ACCES_ADMINISTRATEUR_MOT_DE_PASSE`. Ne jamais mettre ce mot de passe dans un fichier du dépôt. Sans ces variables, personne ne peut se connecter.
 
 ## Où mettre son code
 
