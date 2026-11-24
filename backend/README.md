@@ -30,6 +30,7 @@ Sous Git Bash, préfixer par `MSYS_NO_PATHCONV=1` et écrire `$(pwd -W)` à la p
 Flyway, Spring Data JDBC, JdbcClient, Spring Batch, registre d'événements de Spring Modulith) ; ses tables
 et sa migration sont des ressources de test, aucune table métier n'existe encore.
 `GestionnaireErreursTest` vérifie que les erreurs sortent au format RFC 9457 (`application/problem+json`) sans détail interne.
+`JournalisationTest` vérifie les journaux JSON, l'identifiant de requête (`X-Request-Id`) et l'absence de secret ou de texte d'offre dans les journaux.
 
 ## Où mettre son code
 
