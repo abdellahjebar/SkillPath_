@@ -57,5 +57,17 @@ jobs:
         working-directory: backend
         run: mvn -B -ntp verify
 
+  image:
+    name: Image du serveur (construction)
+    runs-on: ubuntu-24.04
+    steps:
+      # Action épinglée sur un identifiant de commit (v7.0.1)
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      # Docker est installé sur la machine : aucune action tierce. L'image est construite pour vérifier
+      # que le Dockerfile marche, pas publiée (la publication viendra au premier déploiement, ADR-017).
+      - name: Construire l'image du serveur
+        run: docker build --tag skillpath-backend:ci backend
+
   # Les jobs frontend et conformité seront ajoutés avec le code correspondant.
   # Le contrôle du contrat d'API fait l'objet de #21.

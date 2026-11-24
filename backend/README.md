@@ -50,6 +50,19 @@ dont l'équipe a besoin se recrée depuis le dépôt.
 
 Les tests et la CI n'utilisent pas cette base : ils lancent la leur (Testcontainers).
 
+## Lancer le serveur dans Docker
+
+Pour essayer le serveur tel qu'il tournera sur le serveur virtuel (même fichier Compose, ADR-014), sans Java ni Maven :
+
+```
+docker compose --profile serveur up --build
+```
+
+Le serveur est sur `http://localhost:8080` et se connecte à la base du Compose. `docker compose down` l'arrête,
+`docker compose down -v` efface aussi la base. Sans `--profile serveur`, `docker compose up` ne lance que la base.
+L'image tourne avec un utilisateur sans droits d'administration. La CI vérifie qu'elle se construit ; elle n'est pas
+publiée avant le premier déploiement (ADR-017).
+
 ## Où mettre son code
 
 Dans le paquet de son module (`fr.skillpath.<module>`). L'interface publique et les objets échangés

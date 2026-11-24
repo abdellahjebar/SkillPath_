@@ -12,3 +12,9 @@ updates:
     directory: "/backend"
     schedule:
       interval: "weekly"
+
+  # Images de base du Dockerfile du serveur : mises à jour hebdomadaires.
+  - package-ecosystem: "docker"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"

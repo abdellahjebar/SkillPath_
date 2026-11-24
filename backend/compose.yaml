@@ -1,4 +1,5 @@
-# Base de données de développement : PostgreSQL 18, la même version que les tests (ADR-008).
+# Base de données de développement (PostgreSQL 18, la même version que les tests, ADR-008) et, dans un
+# profil à part, le serveur.
 # Lancer : copier .env.example vers .env, puis « docker compose up -d ».
 # Repartir de zéro : « docker compose down -v » (efface le volume).
 services:
@@ -19,6 +20,23 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
+
+  # Le serveur lui-même, dans une image construite depuis les sources. Absent de « docker compose up » :
+  # lancer avec « docker compose --profile serveur up --build ». En développement, on lance plutôt le
+  # serveur depuis l'éditeur, avec le profil dev (README).
+  serveur:
+    profiles: ["serveur"]
+    build: .
+    depends_on:
+      base:
+        condition: service_healthy
+    environment:
+      # Le nom « base » est celui du service ci-dessus (réseau interne de Compose).
+      SPRING_DATASOURCE_URL: jdbc:postgresql://base:5432/skillpath
+      SPRING_DATASOURCE_USERNAME: skillpath
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:?Copier .env.example vers .env et choisir un mot de passe}
+    ports:
+      - "127.0.0.1:8080:8080"
 
 volumes:
   base-donnees:
