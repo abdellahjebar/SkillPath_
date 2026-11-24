@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
@@ -22,7 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Vérifie les journaux JSON, l'identifiant de requête et l'absence de données interdites (ADR-015).
  */
 @ExtendWith(OutputCaptureExtension.class)
-@WebMvcTest(value = JournalisationTest.ControleurDeTest.class, properties = "logging.structured.format.console=logstash")
+@WebMvcTest(value = JournalisationTest.ControleurDeTest.class, properties = "logging.structured.format.console=logstash",
+        excludeAutoConfiguration = {SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class})
 @Import({IdentifiantRequeteFiltre.class, GestionnaireErreurs.class, JournalisationTest.ControleurDeTest.class})
 class JournalisationTest {
 

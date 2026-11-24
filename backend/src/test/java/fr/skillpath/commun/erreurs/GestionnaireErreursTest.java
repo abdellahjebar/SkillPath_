@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
@@ -19,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Vérifie que chaque erreur sort au format RFC 9457 du contrat, sans détail interne.
  */
-@WebMvcTest(GestionnaireErreursTest.ControleurDeTest.class)
+@WebMvcTest(value = GestionnaireErreursTest.ControleurDeTest.class,
+        excludeAutoConfiguration = {SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class})
 @Import({GestionnaireErreurs.class, GestionnaireErreursTest.ControleurDeTest.class})
 class GestionnaireErreursTest {
 
