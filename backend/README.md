@@ -29,6 +29,7 @@ Sous Git Bash, préfixer par `MSYS_NO_PATHCONV=1` et écrire `$(pwd -W)` à la p
 `extraction`, `programmes`, `analytique`, `pipeline`. `StackSmokeTest` valide la pile (PostgreSQL 18,
 Flyway, Spring Data JDBC, JdbcClient, Spring Batch, registre d'événements de Spring Modulith) ; ses tables
 et sa migration sont des ressources de test, aucune table métier n'existe encore.
+`GestionnaireErreursTest` vérifie que les erreurs sortent au format RFC 9457 (`application/problem+json`) sans détail interne.
 
 ## Où mettre son code
 
