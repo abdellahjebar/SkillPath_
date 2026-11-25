@@ -1,0 +1,421 @@
+{
+  "schemaVersion" : 1,
+  "syntheticOnly" : true,
+  "seed" : 20261124,
+  "segment" : {
+    "domainCode" : "M18",
+    "geography" : "FRANCE",
+    "period" : "2026-10",
+    "collectionDate" : "2026-11-05",
+    "offerCount" : 100,
+    "populationDefinition" : "Offres synthetiques supposees dedoublonnees et eligibles (texte fictif d'au moins 200 caracteres); aucun texte n'est stocke."
+  },
+  "competencies" : [ {
+    "id" : "esco:19a8293b-8e95-4de3-983f-77484079c389",
+    "label" : "Java (programmation informatique)"
+  }, {
+    "id" : "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742",
+    "label" : "SQL"
+  }, {
+    "id" : "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996",
+    "label" : "PostgreSQL"
+  } ],
+  "offers" : [ {
+    "id" : "SYN-OFFRE-0001",
+    "competencyIds" : [ "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0002",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0003",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0004",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0005",
+    "competencyIds" : [ "esco:19a8293b-8e95-4de3-983f-77484079c389" ]
+  }, {
+    "id" : "SYN-OFFRE-0006",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0007",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0008",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0009",
+    "competencyIds" : [ "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0010",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0011",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0012",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0013",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0014",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0015",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0016",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0017",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0018",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0019",
+    "competencyIds" : [ "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0020",
+    "competencyIds" : [ "esco:19a8293b-8e95-4de3-983f-77484079c389", "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0021",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0022",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0023",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0024",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0025",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0026",
+    "competencyIds" : [ "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0027",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0028",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0029",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742", "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0030",
+    "competencyIds" : [ "esco:19a8293b-8e95-4de3-983f-77484079c389" ]
+  }, {
+    "id" : "SYN-OFFRE-0031",
+    "competencyIds" : [ "esco:19a8293b-8e95-4de3-983f-77484079c389", "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0032",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0033",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0034",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0035",
+    "competencyIds" : [ "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0036",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0037",
+    "competencyIds" : [ "esco:19a8293b-8e95-4de3-983f-77484079c389" ]
+  }, {
+    "id" : "SYN-OFFRE-0038",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0039",
+    "competencyIds" : [ "esco:19a8293b-8e95-4de3-983f-77484079c389", "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0040",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0041",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0042",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0043",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0044",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0045",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0046",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0047",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0048",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0049",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0050",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0051",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0052",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0053",
+    "competencyIds" : [ "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0054",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0055",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0056",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0057",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0058",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0059",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0060",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0061",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0062",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742", "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0063",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0064",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0065",
+    "competencyIds" : [ "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0066",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0067",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0068",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0069",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0070",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0071",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0072",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0073",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0074",
+    "competencyIds" : [ "esco:19a8293b-8e95-4de3-983f-77484079c389" ]
+  }, {
+    "id" : "SYN-OFFRE-0075",
+    "competencyIds" : [ "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996" ]
+  }, {
+    "id" : "SYN-OFFRE-0076",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0077",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0078",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0079",
+    "competencyIds" : [ "esco:19a8293b-8e95-4de3-983f-77484079c389" ]
+  }, {
+    "id" : "SYN-OFFRE-0080",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0081",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0082",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0083",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0084",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0085",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0086",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0087",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0088",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0089",
+    "competencyIds" : [ "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742" ]
+  }, {
+    "id" : "SYN-OFFRE-0090",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0091",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0092",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0093",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0094",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0095",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0096",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0097",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0098",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0099",
+    "competencyIds" : [ ]
+  }, {
+    "id" : "SYN-OFFRE-0100",
+    "competencyIds" : [ ]
+  } ],
+  "formation" : {
+    "id" : "DEMO-FORMATION",
+    "label" : "Formation de demonstration (fictive)",
+    "versions" : [ {
+      "id" : "DEMO-2026-2027",
+      "status" : "PUBLIEE",
+      "validFrom" : "2026-09-01",
+      "validTo" : "2027-08-31",
+      "units" : [ {
+        "id" : "DEMO-UE-CONCEPTION",
+        "label" : "Conception et programmation",
+        "ects" : 6,
+        "modules" : [ {
+          "stableId" : "ECUE-JAVA-01",
+          "label" : "Programmation Java",
+          "hoursCm" : 18,
+          "hoursTd" : 24,
+          "coefficient" : 2,
+          "competencies" : [ {
+            "competencyId" : "esco:19a8293b-8e95-4de3-983f-77484079c389",
+            "level" : 2
+          } ]
+        }, {
+          "stableId" : "ECUE-SQL-01",
+          "label" : "Bases de donnees relationnelles",
+          "hoursCm" : 12,
+          "hoursTd" : 18,
+          "coefficient" : 1,
+          "competencies" : [ {
+            "competencyId" : "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742",
+            "level" : 3
+          } ]
+        } ]
+      }, {
+        "id" : "DEMO-UE-DONNEES",
+        "label" : "Systemes de donnees",
+        "ects" : 6,
+        "modules" : [ {
+          "stableId" : "ECUE-POSTGRESQL-01",
+          "label" : "Administration PostgreSQL",
+          "hoursCm" : 12,
+          "hoursTd" : 18,
+          "coefficient" : 1,
+          "competencies" : [ {
+            "competencyId" : "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996",
+            "level" : 1
+          } ]
+        } ]
+      } ]
+    }, {
+      "id" : "DEMO-2027-2028",
+      "status" : "BROUILLON",
+      "validFrom" : "2027-09-01",
+      "validTo" : "2028-08-31",
+      "units" : [ {
+        "id" : "DEMO-UE-CONCEPTION",
+        "label" : "Conception et programmation",
+        "ects" : 6,
+        "modules" : [ {
+          "stableId" : "ECUE-JAVA-01",
+          "label" : "Programmation Java",
+          "hoursCm" : 18,
+          "hoursTd" : 24,
+          "coefficient" : 2,
+          "competencies" : [ {
+            "competencyId" : "esco:19a8293b-8e95-4de3-983f-77484079c389",
+            "level" : 3
+          } ]
+        }, {
+          "stableId" : "ECUE-SQL-01",
+          "label" : "Bases de donnees relationnelles",
+          "hoursCm" : 12,
+          "hoursTd" : 18,
+          "coefficient" : 1,
+          "competencies" : [ {
+            "competencyId" : "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742",
+            "level" : 3
+          } ]
+        } ]
+      }, {
+        "id" : "DEMO-UE-DONNEES",
+        "label" : "Systemes de donnees",
+        "ects" : 6,
+        "modules" : [ {
+          "stableId" : "ECUE-POSTGRESQL-01",
+          "label" : "Administration PostgreSQL",
+          "hoursCm" : 12,
+          "hoursTd" : 18,
+          "coefficient" : 1,
+          "competencies" : [ {
+            "competencyId" : "esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996",
+            "level" : 2
+          } ]
+        } ]
+      } ]
+    } ]
+  }
+}
