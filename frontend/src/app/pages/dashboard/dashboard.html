@@ -1,0 +1,166 @@
+<section class="dashboard-page" aria-labelledby="dashboard-title">
+  <div class="page-heading">
+    <h1 id="dashboard-title">Tableau de bord</h1>
+    <button class="export-button" type="button" disabled aria-describedby="export-status">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 15v4h14v-4" />
+      </svg>
+      Exporter CSV
+    </button>
+    <span class="visually-hidden" id="export-status">L’export sera disponible lorsque les données analytiques seront accessibles.</span>
+  </div>
+
+  <div class="segment-filters" aria-label="Filtres du segment">
+    <label class="filter-control">
+      <span>Domaine</span>
+      <select [value]="selectedDomain()" (change)="updateDomain($event)">
+        <option value="M18">Famille M18</option>
+      </select>
+    </label>
+
+    <label class="filter-control">
+      <span>Localisation</span>
+      <select [value]="selectedLocation()" (change)="updateLocation($event)">
+        <option value="France">France</option>
+      </select>
+    </label>
+
+    <label class="filter-control">
+      <span>Période</span>
+      <input type="month" [value]="selectedPeriod()" (change)="updatePeriod($event)" aria-label="Mois de création des offres" />
+    </label>
+  </div>
+
+  <section class="indicator-grid" aria-label="Indicateurs du segment">
+    <article class="indicator-card demand-card">
+      <div class="indicator-title-row">
+        <span class="indicator-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect x="4" y="11" width="24" height="17" rx="2.5" />
+            <path d="M11.5 11V7h9v4M4 16h24M13 16v3h6v-3" />
+          </svg>
+        </span>
+        <h2>Demande (D)</h2>
+      </div>
+      <p class="indicator-value" aria-label="Valeur indisponible">—</p>
+      <p class="indicator-description">Part des offres du segment qui mentionnent la compétence.</p>
+      <div class="confidence-label">
+        <span>Intervalle de confiance de la demande</span>
+        <button class="info-button" type="button" aria-label="Méthode de calcul de l’intervalle de confiance" aria-describedby="wilson-tooltip">
+          <span aria-hidden="true">i</span>
+        </button>
+        <span class="tooltip" id="wilson-tooltip" role="tooltip">Calculé selon la méthode de Wilson.</span>
+      </div>
+      <p class="confidence-value">—</p>
+    </article>
+
+    <article class="indicator-card coverage-card">
+      <div class="indicator-title-row">
+        <span class="indicator-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="m3 12 13-7 13 7-13 7L3 12Z" />
+            <path d="M8 15v7c4.8 4.2 11.2 4.2 16 0v-7M29 12v9" />
+          </svg>
+        </span>
+        <h2>Couverture (K)</h2>
+      </div>
+      <p class="indicator-value" aria-label="Valeur indisponible">—</p>
+      <p class="indicator-description">Mesure jusqu’à quel niveau les formations prennent en charge cette compétence.</p>
+      <p class="indicator-note">K entre 0 et 1 · meilleur niveau atteint dans les modules ÷ 3.</p>
+    </article>
+
+    <article class="indicator-card gap-card">
+      <div class="indicator-title-row">
+        <span class="indicator-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 5v21M8 9h16M5 27h22M8 9l-5 10h10L8 9Zm16 0-5 10h10L24 9Z" />
+            <path d="M12 26h8" />
+          </svg>
+        </span>
+        <h2>Écart (G)</h2>
+      </div>
+      <p class="indicator-value" aria-label="Valeur indisponible">—</p>
+      <p class="indicator-description">Combine la demande du marché et le déficit de couverture.</p>
+      <p class="indicator-note formula">G = D × (1 − K).</p>
+    </article>
+
+    <article class="indicator-card count-card">
+      <div class="indicator-title-row">
+        <span class="indicator-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect x="11" y="4" width="17" height="21" rx="2" />
+            <path d="M7 9H5v19h17v-3M15 10h9M15 15h9M15 20h6" />
+          </svg>
+        </span>
+        <h2>Effectif</h2>
+      </div>
+      <p class="indicator-value" aria-label="Nombre d’offres prises en compte">{{ effectif() ?? '—' }}</p>
+      <p class="indicator-description">Nombre d’offres prises en compte dans le segment.</p>
+    </article>
+  </section>
+
+  @if (sampleSizeStatus() === 'insufficient') {
+    <p class="sample-warning insufficient" role="status">
+      Effectif insuffisant. Aucune estimation n’est présentée.
+    </p>
+  } @else if (sampleSizeStatus() === 'caution') {
+    <p class="sample-warning caution" role="status">
+      À interpréter avec prudence.
+    </p>
+  }
+
+  <section class="level-legend" aria-labelledby="level-legend-title">
+    <h2 id="level-legend-title">Niveaux de prise en charge</h2>
+    <ol>
+      <li><span class="level-number level-zero">0</span><span>Non abordée</span></li>
+      <li><span class="level-number level-one">1</span><span>Mentionnée</span></li>
+      <li><span class="level-number level-two">2</span><span>Mise en pratique</span></li>
+      <li><span class="level-number level-three">3</span><span>Évaluée</span></li>
+    </ol>
+  </section>
+
+  <section class="data-panel chart-panel" aria-labelledby="chart-title">
+    <div class="panel-heading">
+      <h2 id="chart-title">Demande et couverture par compétence</h2>
+      <div class="chart-legend" aria-label="Légende du graphique">
+        <span><i class="legend-mark demand-mark" aria-hidden="true"></i>Demande D</span>
+        <span><i class="legend-mark coverage-mark" aria-hidden="true"></i>Couverture K</span>
+      </div>
+    </div>
+    <div class="chart-empty" role="status">
+      <span class="empty-chart-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <path d="M8 7v34h34" />
+          <path d="M15 31h5M25 24h5M35 15h5" />
+        </svg>
+      </span>
+      <p class="empty-title">Aucune donnée à afficher pour le moment</p>
+      <p class="empty-description">Les résultats apparaîtront lorsque les données analytiques du segment seront disponibles.</p>
+    </div>
+  </section>
+
+  <section class="data-panel table-panel" aria-labelledby="competencies-title">
+    <div class="panel-heading table-heading">
+      <h2 id="competencies-title">Compétences du segment</h2>
+      <span class="sort-note">Trié par écart G décroissant</span>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Compétence</th>
+            <th scope="col">Demande D</th>
+            <th scope="col">Couverture K</th>
+            <th scope="col">Écart G</th>
+            <th scope="col">Effectif</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="table-empty" colspan="5">Aucun résultat disponible pour le segment sélectionné.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>

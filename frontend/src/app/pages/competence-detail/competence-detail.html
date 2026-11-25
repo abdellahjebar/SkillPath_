@@ -1,0 +1,126 @@
+<section class="competence-detail-page" aria-labelledby="competence-detail-title">
+  <a class="back-link" routerLink="/tableau-de-bord">
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M15.5 10H4.5m0 0 4.25-4.25M4.5 10l4.25 4.25" />
+    </svg>
+    Retour au tableau de bord
+  </a>
+
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">Analyse des compétences</p>
+      <h1 id="competence-detail-title">Détail d’une compétence</h1>
+      @if (competenceId(); as id) {
+        <p class="route-reference">Identifiant demandé : <span>{{ id }}</span></p>
+      } @else {
+        <p class="route-reference">Aucune compétence sélectionnée</p>
+      }
+    </div>
+    <span class="data-status">
+      <span class="status-dot" aria-hidden="true"></span>
+      Données en attente
+    </span>
+  </header>
+
+  <p class="availability-note" role="status">
+    Les informations réelles apparaîtront lorsque le contrat API et les données de compétences seront disponibles.
+  </p>
+
+  <section class="detail-card summary-card" aria-labelledby="summary-title">
+    <div class="section-heading">
+      <span class="section-icon skill-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="10.8" cy="10.8" r="6.3" />
+          <path d="m15.4 15.4 4.1 4.1M8.5 10.8h4.6M10.8 8.5v4.6" />
+        </svg>
+      </span>
+      <div>
+        <h2 id="summary-title">Informations sur la compétence</h2>
+        <p>Référentiel et identification</p>
+      </div>
+    </div>
+
+    <dl class="competence-fields">
+      <div class="competence-field field-name">
+        <dt>Libellé</dt>
+        <dd aria-label="Libellé indisponible">—</dd>
+      </div>
+      <div class="competence-field">
+        <dt>Référentiel</dt>
+        <dd aria-label="Référentiel indisponible">—</dd>
+      </div>
+      <div class="competence-field">
+        <dt>Identifiant demandé</dt>
+        <dd>{{ competenceId() ?? '—' }}</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="detail-card evidence-card" aria-labelledby="evidence-title">
+    <div class="section-heading section-heading-with-meta">
+      <div class="heading-main">
+        <span class="section-icon evidence-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 4.5h9l5 5v10H5v-15Z" />
+            <path d="M14 4.5v5h5M8.5 13h7M8.5 16.5h7" />
+          </svg>
+        </span>
+        <div>
+          <h2 id="evidence-title">Preuves issues des offres</h2>
+          <p>Mentions de la compétence dans les offres du segment</p>
+        </div>
+      </div>
+      <span class="section-count">— preuve</span>
+    </div>
+
+    <div class="empty-state" role="status">
+      <span class="empty-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none">
+          <rect x="8" y="6" width="24" height="28" rx="3" />
+          <path d="M14 14h12M14 20h12M14 26h7" />
+        </svg>
+      </span>
+      <p class="empty-title">Aucune preuve disponible</p>
+      <p class="empty-description">Les offres et leurs éléments justificatifs seront affichés ici lorsque les données seront accessibles.</p>
+    </div>
+  </section>
+
+  <section class="detail-card applications-card" aria-labelledby="applications-title">
+    <div class="section-heading">
+      <span class="section-icon application-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M13.5 5H19v5.5M18.5 5.5l-8 8" />
+          <path d="M18 13.5v4A1.5 1.5 0 0 1 16.5 19h-11A1.5 1.5 0 0 1 4 17.5v-11A1.5 1.5 0 0 1 5.5 5h4" />
+        </svg>
+      </span>
+      <div>
+        <h2 id="applications-title">Liens de candidature</h2>
+        <p>Accès aux offres qui apportent une preuve</p>
+      </div>
+    </div>
+
+    <p class="inline-empty" role="status">Aucun lien de candidature disponible.</p>
+  </section>
+
+  <section class="detail-card modules-card" aria-labelledby="modules-title">
+    <div class="section-heading section-heading-with-meta">
+      <div class="heading-main">
+        <span class="section-icon modules-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 5.5c3.1-.9 5.7-.4 8 1.2v12c-2.3-1.6-4.9-2.1-8-1.2v-12Zm16 0c-3.1-.9-5.7-.4-8 1.2v12c2.3-1.6 4.9-2.1 8-1.2v-12Z" />
+          </svg>
+        </span>
+        <div>
+          <h2 id="modules-title">Modules associés</h2>
+          <p>Modules de formation qui traitent cette compétence</p>
+        </div>
+      </div>
+      <span class="section-count">— module</span>
+    </div>
+
+    <div class="empty-state modules-empty" role="status">
+      <p class="empty-title">Aucun module associé disponible</p>
+      <p class="empty-description">Les modules et leurs niveaux de traitement seront affichés ici lorsque le référentiel de formation sera accessible.</p>
+    </div>
+  </section>
+</section>
