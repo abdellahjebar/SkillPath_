@@ -9,10 +9,13 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
+import fr.skillpath.extraction.TypeCorrespondance;
 
 /**
  * Generates a small, reproducible synthetic dataset for local development.
@@ -24,14 +27,16 @@ public final class SyntheticDatasetGenerator {
 
     static final long DEFAULT_SEED = 20261124L;
     static final int OFFER_COUNT = 100;
+    static final int MINIMUM_ELIGIBLE_TEXT_LENGTH = 200;
     private static final Path DEFAULT_OUTPUT = Path.of("dev-data", "examples", "jeu-synthetique.json");
     private static final ObjectMapper JSON = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+    private static final String SQL_ID = "esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742";
     private static final List<SkillDefinition> SKILL_DEFINITIONS = List.of(
             new SkillDefinition(
                     "esco:19a8293b-8e95-4de3-983f-77484079c389",
-                    "Java (programmation informatique)", 8),
-            new SkillDefinition("esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742", "SQL", 20),
-            new SkillDefinition("esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996", "PostgreSQL", 12));
+                    "Java (programmation informatique)", 8, null),
+            new SkillDefinition(SQL_ID, "SQL", 20, "SEQUEL"),
+            new SkillDefinition("esco:a8d07b5a-c1a1-42c6-9d53-db9c7a2ca996", "PostgreSQL", 12, null));
 
     private SyntheticDatasetGenerator() {
     }
@@ -45,8 +50,9 @@ public final class SyntheticDatasetGenerator {
             Files.createDirectories(parent);
         }
         Files.writeString(output, toJson(dataset) + "\n", StandardCharsets.UTF_8);
-        System.out.printf("Jeu synthetique genere : %s (graine %d, %d offres)%n",
-                output.toAbsolutePath().normalize(), dataset.seed(), dataset.offers().size());
+        System.out.printf("Jeu synthetique genere : %s (graine %d, %d enregistrements, %d offres retenues)%n",
+                output.toAbsolutePath().normalize(), dataset.seed(), dataset.offers().size(),
+                dataset.segment().offerCount());
     }
 
     static Dataset generate(long seed) {
@@ -72,8 +78,24 @@ public final class SyntheticDatasetGenerator {
                 .toList();
         List<Offer> offers = new ArrayList<>(OFFER_COUNT);
         for (int i = 0; i < OFFER_COUNT; i++) {
-            offers.add(new Offer("SYN-OFFRE-%04d".formatted(i + 1), List.copyOf(skillsByOffer.get(i))));
+            String id = "SYN-OFFRE-%04d".formatted(i + 1);
+            Set<String> assignedSkillIds = skillsByOffer.get(i);
+            List<SkillDefinition> assignedSkills = SKILL_DEFINITIONS.stream()
+                    .filter(skill -> assignedSkillIds.contains(skill.id()))
+                    .toList();
+            int syntheticTextLength = MINIMUM_ELIGIBLE_TEXT_LENGTH + 40 + (i * 37 % 121);
+            List<ExpectedMention> expectedMentions = expectedMentions(i, assignedSkills);
+            offers.add(new Offer(id, syntheticTextLength,
+                    syntheticTextLength >= MINIMUM_ELIGIBLE_TEXT_LENGTH, true, null, null, expectedMentions));
         }
+        offers.add(new Offer("SYN-OFFRE-COURTE", MINIMUM_ELIGIBLE_TEXT_LENGTH - 1,
+                false, true, null, "TEXTE_SOUS_SEUIL", List.of()));
+        Offer duplicate = offers.stream()
+                .filter(offer -> offer.eligible() && offer.deduplicated() && !offer.expectedMentions().isEmpty())
+                .findFirst()
+                .orElseThrow();
+        offers.add(new Offer("SYN-OFFRE-DOUBLON", duplicate.syntheticTextLength(),
+                true, false, duplicate.id(), "DOUBLON", duplicate.expectedMentions()));
 
         List<ProgramVersion> versions = List.of(
                 new ProgramVersion("DEMO-2026-2027", "PUBLIEE", "2026-09-01", "2027-08-31",
@@ -81,12 +103,29 @@ public final class SyntheticDatasetGenerator {
                 new ProgramVersion("DEMO-2027-2028", "BROUILLON", "2027-09-01", "2028-08-31",
                         unitsWithLevels(3, 2)));
         Segment segment = new Segment(
-                "M18", "FRANCE", "2026-10", "2026-11-05", offers.size(),
-                "Offres synthetiques supposees dedoublonnees et eligibles (texte fictif d'au moins 200 caracteres); aucun texte n'est stocke.");
+                "M18", "FRANCE", "2026-10", "2026-11-05",
+                (int) offers.stream().filter(Offer::eligible).filter(Offer::deduplicated).count(),
+                MINIMUM_ELIGIBLE_TEXT_LENGTH,
+                "Population analytique synthetique : textes admissibles d'au moins 200 caracteres et offres dedoublonnees; exemples exclus inclus.");
         Formation formation = new Formation(
                 "DEMO-FORMATION", "Formation de demonstration (fictive)", versions);
 
-        return new Dataset(1, true, seed, segment, skills, offers, formation);
+        return new Dataset(2, true, seed, segment, skills, offers, formation);
+    }
+
+    private static List<ExpectedMention> expectedMentions(int offerIndex, List<SkillDefinition> assignedSkills) {
+        List<ExpectedMention> mentions = new ArrayList<>();
+        for (SkillDefinition skill : assignedSkills) {
+            if (skill.retainedAlias() != null && offerIndex % 4 == 0) {
+                mentions.add(new ExpectedMention(skill.id(), TypeCorrespondance.ALIAS));
+            } else {
+                mentions.add(new ExpectedMention(skill.id(), TypeCorrespondance.LIBELLE_EXACT));
+            }
+            if (skill.id().equals(SQL_ID) && offerIndex % 5 == 0) {
+                mentions.add(new ExpectedMention(skill.id(), TypeCorrespondance.LIBELLE_EXACT));
+            }
+        }
+        return List.copyOf(mentions);
     }
 
     private static List<Unit> unitsWithLevels(int javaLevel, int postgresqlLevel) {
@@ -128,13 +167,17 @@ public final class SyntheticDatasetGenerator {
         return new Options(seed, output);
     }
 
-    record SkillDefinition(String id, String label, int mentionCount) {
-    }
-
     record Skill(String id, String label) {
     }
 
-    record Offer(String id, List<String> competencyIds) {
+    record Offer(String id, int syntheticTextLength, boolean eligible, boolean deduplicated,
+            String duplicateOf, String exclusionReason, List<ExpectedMention> expectedMentions) {
+        Offer {
+            expectedMentions = List.copyOf(expectedMentions);
+        }
+    }
+
+    record ExpectedMention(String competencyId, TypeCorrespondance typeCorrespondance) {
     }
 
     record Coverage(String competencyId, int level) {
@@ -154,11 +197,18 @@ public final class SyntheticDatasetGenerator {
     }
 
     record Segment(String domainCode, String geography, String period, String collectionDate, int offerCount,
-            String populationDefinition) {
+            int minimumTextLength, String populationDefinition) {
     }
 
     record Dataset(int schemaVersion, boolean syntheticOnly, long seed, Segment segment,
             List<Skill> competencies, List<Offer> offers, Formation formation) {
+        Dataset {
+            competencies = List.copyOf(competencies);
+            offers = List.copyOf(offers);
+        }
+    }
+
+    private record SkillDefinition(String id, String label, int mentionCount, String retainedAlias) {
     }
 
     private record Options(long seed, Path output) {
